@@ -20,6 +20,10 @@ const ProfileModal = ({ user, children }) => {
   const handleClick = ()=>{
     navigate("/paymentDetails")
   }
+  const handleClickEdit =()=>{
+    navigate("/userDetails")
+
+  }
 
   return (
 
@@ -45,23 +49,26 @@ const ProfileModal = ({ user, children }) => {
             justifyContent="center"
           >
             <Text
-              fontSize="20px"
+              fontSize="40px"
+              fontWeight={600}
               fontFamily="Poppins"
               display="flex"
               justifyContent="center"
             >
-              {user.username}
+             Hi! {user.username}
             </Text>
             <Image
-              borderRadius="full"
+              borderRadius="50%"
+              margin="10px"
               boxSize="150px"
               src={user.avatar}
               alt={user.username}
             />
-            <Text fontSize={{ base: "28px", md: "30px" }} fontFamily="Poppins">
+            <Text bg={"gray.100"}  fontSize={{ base: "28px", md: "30px" }} fontFamily="Poppins">
               Email: {user.email}
             </Text>
             <Button style={{ marginTop: "40px" }} colorScheme="purple" onClick={handleClick}> Payment Details</Button>
+            <Button style={{ marginTop: "40px" }} colorScheme="purple" onClick={handleClickEdit}> Edit Details</Button>
 
           </ModalBody>
           <ModalFooter>

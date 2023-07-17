@@ -19,13 +19,13 @@ import {
     SimpleGrid
 } from "@chakra-ui/react";
 
-function PaymentDetails() {
+function UserDetails() {
     const { user } = useAppContext();
 
 
-    const [aadhar, setAadhar] = useState();
+    const [affilate, setAffilate] = useState();
     const [nameBeni, setNameBeni] = useState();
-
+    const [last , setLast] = useState();
     const [experience, setExperience] = useState(0);
     const [bankName, setBankName] = useState();
     const [BankAddress, setBankAddress] = useState();
@@ -39,14 +39,14 @@ function PaymentDetails() {
     const [age, setAge] = useState();
     const [phone, setPhone] = useState();
     const [profilePic, setProfilePic] = useState('');
-    const [aadharPic, setAadharPic] = useState('');
+    // const [aadharPic, setAadharPic] = useState('');
     const [profilePicName, setProfilePicName] = useState('')
-    const [aadharPicName, setAadharPicName] = useState('')
+    // const [aadharPicName, setAadharPicName] = useState('')
     const [storeData, setStoreData] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [showImg, setShowImg] = useState(false);
     const [profilePicLink, setprofilePicLink] = useState('/profile.png');
-    const [aadharPicLink, setAadharPicLink] = useState('/profile.png');
+    // const [aadharPicLink, setAadharPicLink] = useState('/profile.png');
     const navigate = useNavigate();
     const handleSubmit = async (event) => {
 
@@ -137,13 +137,13 @@ function PaymentDetails() {
         myForm.set("age", age);
         myForm.set("email", user.email);
         myForm.set("fullName", user.fullname);
-        myForm.set("aadhar", aadhar);
+        // myForm.set("aadhar", aadhar);
         myForm.set("phone", phone);
         myForm.set("address", address);
         myForm.set("role", role);
         myForm.set("pin", pin);
         myForm.set("profilePic", profilePicLink);
-        myForm.set("aadharPic", aadharPicLink);
+        // myForm.set("aadharPic", aadharPicLink);
         myForm.set('experience', experience);
         myForm.set("price", price);
         myForm.set("userId", user._id);
@@ -217,21 +217,21 @@ function PaymentDetails() {
         //     console.log(err)
         // })
     }
-    const onAadharPicChange = async (e) => {
+    // const onAadharPicChange = async (e) => {
 
-        const reader = new FileReader();
+    //     const reader = new FileReader();
 
-        reader.onload = () => {
+    //     reader.onload = () => {
 
-            if (reader.readyState === 2) {
-                // setAvatarPreview(reader.result);
-                setAadharPicLink(reader.result);
-            }
-        };
+    //         if (reader.readyState === 2) {
+    //             // setAvatarPreview(reader.result);
+    //             setAadharPicLink(reader.result);
+    //         }
+    //     };
 
 
 
-        reader.readAsDataURL(e.target.files[0]);
+        // reader.readAsDataURL(e.target.files[0]);
 
 
 
@@ -239,7 +239,7 @@ function PaymentDetails() {
 
 
         // setAadharPic(e.target.files[0]);
-        setAadharPicName(e.target.files[0].name);
+        // setAadharPicName(e.target.files[0].name);
 
         // const dA = new FormData();
         // dA.append("file", aadharPic);
@@ -260,7 +260,7 @@ function PaymentDetails() {
         // }).catch((err) => {
         //     console.log(err)
         // })
-    }
+    // }
 
     const boxstyle = {
         bgGradient: "linear(to-l, #7928CA, #FF0080)",
@@ -286,7 +286,7 @@ function PaymentDetails() {
             {user && <SideDrawer />}
 
             <Box sx={boxstyle}>
-                <Text> Payment Details </Text>
+                <Text> User Details </Text>
             </Box>
             <Box  maxWidth={"1200px"} sx={boxstyleForm} bg={"gray.100"} className="labour-form" >
 
@@ -295,20 +295,20 @@ function PaymentDetails() {
                     <SimpleGrid p={10} minChildWidth={250} spacing={10} >
                         <Box>
                             <FormControl>
-                                <FormLabel htmlFor="account">Account Number:</FormLabel>
+                                <FormLabel htmlFor="account">Affilate ID:</FormLabel>
                                 <Input
                                     type="number"
-                                    id="account"
-                                    placeholder="Enter Account Number"
+                                    id="affilate"
+                                    placeholder="Enter Affilate ID"
                                     min={0}
-                                    value={aadhar}
-                                    onChange={(event) => setAadhar(event.target.value)}
+                                    value={affilate}
+                                    onChange={(event) => setAffilate(event.target.value)}
                                 />
                             </FormControl>
                         </Box>
                         <Box>
                             <FormControl>
-                                <FormLabel htmlFor="name">Beneficiary Name:</FormLabel>
+                                <FormLabel htmlFor="name">First Name:</FormLabel>
                                 <Input
                                     type="string"
                                     id="name"
@@ -321,13 +321,13 @@ function PaymentDetails() {
                         </Box>
                         <Box>
                             <FormControl>
-                                <FormLabel htmlFor="address">Beneficiary Address:</FormLabel>
+                                <FormLabel htmlFor="address">Last Name:</FormLabel>
                                 <Input
                                     type="text"
                                     id="address"
-                                    placeholder="Enter Address"
-                                    value={address}
-                                    onChange={(event) => setAddress(event.target.value)}
+                                    placeholder="Last Name"
+                                    value={last}
+                                    onChange={(event) => setLast(event.target.value)}
                                 />
                             </FormControl>
                         </Box>
@@ -346,7 +346,7 @@ function PaymentDetails() {
                         </Box>
                         <Box>
                             <FormControl>
-                                <FormLabel htmlFor="BankAddress">Bank Address:</FormLabel>
+                                <FormLabel htmlFor="BankAddress">Address:</FormLabel>
                                 <Input
                                     type="text"
                                     id="BankAddress"
@@ -443,7 +443,7 @@ function PaymentDetails() {
     );
 }
 
-export default PaymentDetails;
+export default UserDetails;
 
 
 
