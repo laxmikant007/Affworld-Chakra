@@ -7,6 +7,7 @@ import Offers from "./components/Affiliates/Offers";
 import Home from "./components/Affiliates/Home";
 import PaymentDetails from "./components/Affiliates/PaymentDetails";
 import UserDetails from "./components/Affiliates/UserDetails";
+import Finance from "./pages/Finance";
 
 
 // import Chat from "./pages";
@@ -28,6 +29,8 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/paymentDetails" element={<PaymentDetails />} />
         <Route path="/UserDetails" element={<UserDetails />} />
+        <Route path="/finance" element={<Finance />} />
+
 
 
         

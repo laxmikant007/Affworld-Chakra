@@ -1,6 +1,4 @@
-
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,246 +19,60 @@ import {
 
 function PaymentDetails() {
     const { user } = useAppContext();
-
-
-    const [aadhar, setAadhar] = useState();
+    const [account , setAccount] = useState();
     const [nameBeni, setNameBeni] = useState();
-
-    const [experience, setExperience] = useState(0);
     const [bankName, setBankName] = useState();
     const [BankAddress, setBankAddress] = useState();
-
-
-
-    const [price, setPrice] = useState();
+    const [beniAddress , setBeniAddress] = useState();
+    const [sortCode , setSortCode] = useState();
+    const [iBan , setIBan] = useState();
+    const [swift , setSwift] = useState();
     const [role, setRole] = useState('');
-    const [address, setAddress] = useState('');
-    const [pin, setPin] = useState();
-    const [age, setAge] = useState();
-    const [phone, setPhone] = useState();
-    const [profilePic, setProfilePic] = useState('');
-    const [aadharPic, setAadharPic] = useState('');
-    const [profilePicName, setProfilePicName] = useState('')
-    const [aadharPicName, setAadharPicName] = useState('')
-    const [storeData, setStoreData] = useState(false);
-    const [imageUrl, setImageUrl] = useState('');
-    const [showImg, setShowImg] = useState(false);
-    const [profilePicLink, setprofilePicLink] = useState('/profile.png');
-    const [aadharPicLink, setAadharPicLink] = useState('/profile.png');
-    const navigate = useNavigate();
+
+
+  
     const handleSubmit = async (event) => {
 
         event.preventDefault();
-        // console.log('aadhar:', aadhar);
-        // console.log('experience:', experience);
-        // console.log('Price:', price);
-        // console.log('address:', address);
-        // console.log('pin:', pin);
-        // console.log('age:', age);
-        // console.log('phone:', phone);
-        // console.log("profile pic link ", profilePicLink);
-        // console.log("aadhar pic link ", aadharPicLink);
 
-
-        //   if(!address || !phone || !age || !pin || !price || !experience || !aadharPic || !profilePic ||  !aadhar){
-        //     console.log("mouse clicked");
-        //     toast("Form is not filled properly",{
-        //         autoClose:2000
-        // })
-        //   }
-
-        //   else{
-        setWorkerData();
-
-        //     toast.success("Form Submitted Successfully!!", {
-        //         autoClose: 1500, 
-        //     });
-
-        //     const timer = setTimeout(() => {        navigate("/adminLabour");
-        // }, 1500);
-
-        // return () => clearTimeout(timer);
-
-
-
-        // const d= new FormData();
-        // d.append("file", profilePic);
-        // d.append("upload_preset","rental-rack");
-        // d.append("cloud_name","ddwsaojx6");
-
-        // const d1= await fetch("https://api.cloudinary.com/v1_1/ddwsaojx6/image/upload",{
-        //     method:"post",
-        //     body:d
-        // }).then((res)=>res.json()).then((data)=>{
-
-        //     if(data){
-        //         setProfilePic(data.url)
-        //         setprofilePicLink(data.url);
-
-        //     }
-        //     // setProfilePic(data.url)
-        //     console.log("profile pic is ",data.url);
-        // }).catch((err)=>{
-        //     console.log(err)
-        // })
-
-        // const dA= new FormData();
-        // dA.append("file", aadharPic);
-        // dA.append("upload_preset","rental-rack");
-        // dA.append("cloud_name","ddwsaojx6");
-
-        // const d2= await fetch("https://api.cloudinary.com/v1_1/ddwsaojx6/image/upload",{
-        //     method:"post",
-        //     body:dA
-        // }).then((res)=>res.json()).then((data)=>{
-
-        //     if(data){
-        //         setAadharPic(data.url)
-        //         setAadharPicLink(data.url);
-        //         console.log("aadhar url is ", data.url);
-
-
-        //     }
-
-        // }).catch((err)=>{
-        //     console.log(err)
-        // })
-        // }
+        const data = {
+            account,
+            nameBeni,
+            bankName,
+            BankAddress,
+            beniAddress,
+            sortCode,
+            iBan,
+            swift,
+            role
+        };
+    
+        try {
+            const response = await fetch(process.env.REACT_APP_API, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+            
+                },
+                body: JSON.stringify(data)
+            });
+    
+            if (response.ok) {
+               
+                toast.success('Form data submitted successfully!');
+            } else {
+              
+                toast.error('Error submitting form data. Please try again.');
+            }
+        } catch (error) {
+         
+            toast.error('Error submitting form data. Please try again.');
+        }
+        
     };
-    const setWorkerData = async () => {
-        const data = localStorage.getItem("user")
-        const user = JSON.parse(data)
-        localStorage.setItem("role", "worker");
+   
 
-        const myForm = new FormData();
-
-        myForm.set("age", age);
-        myForm.set("email", user.email);
-        myForm.set("fullName", user.fullname);
-        myForm.set("aadhar", aadhar);
-        myForm.set("phone", phone);
-        myForm.set("address", address);
-        myForm.set("role", role);
-        myForm.set("pin", pin);
-        myForm.set("profilePic", profilePicLink);
-        myForm.set("aadharPic", aadharPicLink);
-        myForm.set('experience', experience);
-        myForm.set("price", price);
-        myForm.set("userId", user._id);
-
-
-        // console.log("my form is ",myForm);
-
-        // const res = await workerRegister(myForm);
-
-
-        // const res = await workerRegister({
-        //     aadhar: aadhar,
-        //     age: age,
-        //     fullName: user.fullname,
-        //     email: user.email,
-        //     userId: user._id,
-        //     phone: phone,
-        //     pin: pin,
-        //     address: address,
-        //     role: role,
-        //     profilePic: profilePicLink,
-        //     aadharPic: aadharPicLink,
-        //     experience: experience,
-        //     price: price,
-        // })
-    }
-
-    const onProfilePicChange = async (e) => {
-
-        const reader = new FileReader();
-
-
-
-        reader.onload = () => {
-
-            if (reader.readyState === 2) {
-                // setAvatarPreview(reader.result);
-                setprofilePicLink(reader.result);
-            }
-        };
-
-
-        reader.readAsDataURL(e.target.files[0]);
-
-        // console.log("e is ",e.target.files[0]);
-
-
-
-
-
-        // setProfilePic(e.target.files[0]);
-        setProfilePicName(e.target.files[0].name);
-        // const d = new FormData();
-        // d.append("file", profilePic);
-        // d.append("upload_preset", "rental-rack");
-        // d.append("cloud_name", "ddwsaojx6");
-        // const d1 = await fetch("https://api.cloudinary.com/v1_1/ddwsaojx6/image/upload", {
-        //     method: "post",
-        //     body: d
-        // }).then((res) => res.json()).then((data) => {
-        //     if (data) {
-        //         setProfilePic(data.url)
-
-
-        //         setprofilePicLink(data.url);
-
-        //     }
-        //     // setProfilePic(data.url)
-        //     console.log("profile pic is ", data.url);
-        // }).catch((err) => {
-        //     console.log(err)
-        // })
-    }
-    const onAadharPicChange = async (e) => {
-
-        const reader = new FileReader();
-
-        reader.onload = () => {
-
-            if (reader.readyState === 2) {
-                // setAvatarPreview(reader.result);
-                setAadharPicLink(reader.result);
-            }
-        };
-
-
-
-        reader.readAsDataURL(e.target.files[0]);
-
-
-
-
-
-
-        // setAadharPic(e.target.files[0]);
-        setAadharPicName(e.target.files[0].name);
-
-        // const dA = new FormData();
-        // dA.append("file", aadharPic);
-        // dA.append("upload_preset", "rental-rack");
-        // dA.append("cloud_name", "ddwsaojx6");
-
-        // const d2 = await fetch("https://api.cloudinary.com/v1_1/ddwsaojx6/image/upload", {
-        //     method: "post",
-        //     body: dA
-        // }).then((res) => res.json()).then((data) => {
-
-        //     if (data) {
-        //         setAadharPic(data.url)
-        //         setAadharPicLink(data.url);
-        //         console.log("aadhar url is ", data.url);
-        //         // setWorkerData();   
-        //     }
-        // }).catch((err) => {
-        //     console.log(err)
-        // })
-    }
+   
 
     const boxstyle = {
         bgGradient: "linear(to-l, #7928CA, #FF0080)",
@@ -301,8 +113,8 @@ function PaymentDetails() {
                                     id="account"
                                     placeholder="Enter Account Number"
                                     min={0}
-                                    value={aadhar}
-                                    onChange={(event) => setAadhar(event.target.value)}
+                                    value={account}
+                                    onChange={(event) => setAccount(event.target.value)}
                                 />
                             </FormControl>
                         </Box>
@@ -326,8 +138,8 @@ function PaymentDetails() {
                                     type="text"
                                     id="address"
                                     placeholder="Enter Address"
-                                    value={address}
-                                    onChange={(event) => setAddress(event.target.value)}
+                                    value={beniAddress}
+                                    onChange={(event) => setBeniAddress(event.target.value)}
                                 />
                             </FormControl>
                         </Box>
@@ -338,7 +150,7 @@ function PaymentDetails() {
                                 <Input
                                     type="text"
                                     id="bankName"
-                                    placeholder="Enter Bank Address"
+                                    placeholder="Enter Bank Name"
                                     value={bankName}
                                     onChange={(event) => setBankName(event.target.value)}
                                 />
@@ -359,38 +171,38 @@ function PaymentDetails() {
 
                         <Box>
                             <FormControl>
-                                <FormLabel htmlFor="price">Price (per day):</FormLabel>
+                                <FormLabel htmlFor="code">Sort Code:</FormLabel>
                                 <Input
-                                    type="number"
-                                    placeholder="Price Per Day"
-                                    id="price-labour"
-                                    value={price}
-                                    onChange={(event) => setPrice(event.target.value)}
+                                    type="text"
+                                    placeholder="Enter Sort Code"
+                                    id="sort-code"
+                                    value={sortCode}
+                                    onChange={(event) => setSortCode(event.target.value)}
                                 />
                             </FormControl>
                         </Box>
 
                         <Box >
                             <FormControl>
-                                <FormLabel htmlFor="pin">Pin Code:</FormLabel>
+                                <FormLabel htmlFor="pin">IBAN:</FormLabel>
                                 <Input
                                     type="number"
-                                    id="pin"
-                                    placeholder="Enter Pin"
-                                    value={pin}
-                                    onChange={(event) => setPin(event.target.value)}
+                                    id="iban"
+                                    placeholder="Enter IBAN"
+                                    value={iBan}
+                                    onChange={(event) => setIBan(event.target.value)}
                                 />
                             </FormControl>
                         </Box>
                         <Box>
                             <FormControl>
-                                <FormLabel htmlFor="age">Age (only 18+):</FormLabel>
+                                <FormLabel htmlFor="number">SWIFT</FormLabel>
                                 <Input
-                                    type="number"
-                                    id="age"
-                                    placeholder="Your Age"
-                                    value={age}
-                                    onChange={(event) => setAge(event.target.value)}
+                                    type="text"
+                                    id="swift"
+                                    placeholder="SWIFT"
+                                    value={swift}
+                                    onChange={(event) => setSwift(event.target.value)}
                                 />
                             </FormControl>
                         </Box>
