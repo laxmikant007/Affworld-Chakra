@@ -28,7 +28,7 @@ function UserDetails() {
     const [last , setLast] = useState();
     const [experience, setExperience] = useState(0);
     const [bankName, setBankName] = useState();
-    const [BankAddress, setBankAddress] = useState();
+    const [userAddress, setUserAddress] = useState();
 
 
 
@@ -338,7 +338,7 @@ function UserDetails() {
                                 <Input
                                     type="text"
                                     id="bankName"
-                                    placeholder="Enter Bank Address"
+                                    placeholder="Enter Bank Name"
                                     value={bankName}
                                     onChange={(event) => setBankName(event.target.value)}
                                 />
@@ -351,8 +351,8 @@ function UserDetails() {
                                     type="text"
                                     id="BankAddress"
                                     placeholder="Enter Bank Address"
-                                    value={BankAddress}
-                                    onChange={(event) => setBankAddress(event.target.value)}
+                                    value={userAddress}
+                                    onChange={(event) => setUserAddress(event.target.value)}
                                 />
                             </FormControl>
                         </Box>

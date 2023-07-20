@@ -36,6 +36,7 @@ function PaymentDetails() {
         event.preventDefault();
 
         const data = {
+            userId:user?._id,
             account,
             nameBeni,
             bankName,
@@ -46,9 +47,11 @@ function PaymentDetails() {
             swift,
             role
         };
+
+        console.log("User is :" , user)
     
         try {
-            const response = await fetch(process.env.REACT_APP_API, {
+            const response = await fetch(`${process.env.REACT_APP_API}/api/v1/payment/paymentDetails`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

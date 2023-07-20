@@ -7,6 +7,12 @@ const URL = "https://affilator.onrender.com"
 const KEY = "key";
 
 
+const config={
+  headers:{
+    "token":localStorage.getItem("token")
+  }
+}
+
 //All are Offer/Campagin Section 
 
 
@@ -118,4 +124,15 @@ export const deleteAdvitisorsData = async (id) => {
 
 
 
+}
+
+export const getPaymentDetails=async(id)=>{
+  try{
+    const result=await axios.get(`${URL}/getPaymentDetails/${id}`);
+    // console.log("====",result.data);
+    return result.data;
+  }
+  catch(error){
+    console.log("error while getting projects ", error.message);
+  }
 }
