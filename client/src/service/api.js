@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-// const URL="http://localhost:8000"
+// const URL1="http://localhost:5000"
+const URL1="https://affworld-chakra-api.onrender.com"
+
 const URL = "https://affilator.onrender.com"
 // const URL = "process.env.REACT_APP_BASE_URL;"
 
@@ -138,10 +140,12 @@ export const getPaymentDetails=async(id)=>{
 }
 
 export const getPaymentInfo = async(id)=>{
-  try {
-    console.log("Getpayment info running ")
-    
-  } catch (error) {
-    console.log("Error while getting payment info :", error)
+  try{
+    const result=await axios.get(`${URL1}/api/v1/payment/getPaymentDetails/${id}`);
+    // console.log("====",result.data);
+    return result.data;
+  }
+  catch(error){
+    console.log("error while getting projects ", error.message);
   }
 }

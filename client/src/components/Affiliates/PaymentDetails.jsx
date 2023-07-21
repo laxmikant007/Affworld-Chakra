@@ -18,6 +18,9 @@ import {
 } from "@chakra-ui/react";
 import { getPaymentInfo } from '../../service/api';
 
+import PaymentModal from "./modal/PaymentModal"
+
+
 function PaymentDetails() {
     const { user } = useAppContext();
     const [account , setAccount] = useState();
@@ -29,12 +32,16 @@ function PaymentDetails() {
     const [iBan , setIBan] = useState();
     const [swift , setSwift] = useState();
     const [role, setRole] = useState('');
+
+
     const [paymentInfo,setPaymentInfo] = useState(false);
     const [payment,setPayment] = useState([]);
+    const [showAllProjects,setShowAllProjects] = useState(false);
+
 
     useEffect(()=>{
-        // getSetProfile();
         getSetPaymentInfo();
+        // getSetProfile();
       },[])
 
 
@@ -84,13 +91,23 @@ function PaymentDetails() {
    
 
     const getSetPaymentInfo=async()=>{
-        const res = await getPaymentInfo(user.userId);
+        const res = await getPaymentInfo(user._id);
+        console.log("this is new user id :",user._id)
+        
+        console.log("user details are" ,user)
         console.log(res);
         if(res[0]){
           setPaymentInfo(true);
         }
         setPayment(res);
         console.log()
+      }
+
+      const handlesavedpayment =async()=>{
+
+        setShowAllProjects(true);
+        getSetPaymentInfo();
+
       }
 
       
@@ -265,17 +282,17 @@ function PaymentDetails() {
                         <Button colorScheme="blue" onClick={handleSubmit} type="submit">
                             Submit
                         </Button>
-                        <Button colorScheme="blue" onClick={getSetPaymentInfo} type="submit">
-                            Saved Deatils
-                        </Button>
                     </SimpleGrid>
                     {/* </VStack> */}
                 </form>
+                        <Button colorScheme="blue"  onClick={()=>{handlesavedpayment()}} type="submit">
+                            Saved Deatils
+                        </Button>
 
             </Box >
             {/* </SimpleGrid> */}
             {/* <Footer /> */}
-            {/* <AllProjects showModal={showAllProjects} hideModal={()=>{setShowAllProjects(false)}} projects ={project} projectInfo={projectInfo}  /> */}
+            <PaymentModal showModal={showAllProjects} hideModal={()=>{setShowAllProjects(false)}} projects ={payment} projectInfo={paymentInfo}  />
             <ToastContainer />
         </>
     );

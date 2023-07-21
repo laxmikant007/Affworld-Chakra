@@ -44,7 +44,7 @@ export const paymentDetailsController =async(req , res )  =>{
     }
 }
 
-export const getPaymentDetails = async()=>{
+export const getPaymentDetails = async(req,res)=>{
     try {
         console.log("id ", req.params.id)
         const data= await paymentDetailsModel.find({userId:req.params.id});
