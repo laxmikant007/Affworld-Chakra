@@ -136,3 +136,12 @@ export const getPaymentDetails=async(id)=>{
     console.log("error while getting projects ", error.message);
   }
 }
+
+export const getPaymentInfo = async(id)=>{
+  try {
+    console.log("Getpayment info running ")
+    
+  } catch (error) {
+    console.log("Error while getting payment info :", error)
+  }
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +16,7 @@ import {
     Text,
     SimpleGrid
 } from "@chakra-ui/react";
+import { getPaymentInfo } from '../../service/api';
 
 function PaymentDetails() {
     const { user } = useAppContext();
@@ -28,6 +29,13 @@ function PaymentDetails() {
     const [iBan , setIBan] = useState();
     const [swift , setSwift] = useState();
     const [role, setRole] = useState('');
+    const [paymentInfo,setPaymentInfo] = useState(false);
+    const [payment,setPayment] = useState([]);
+
+    useEffect(()=>{
+        // getSetProfile();
+        getSetPaymentInfo();
+      },[])
 
 
   
@@ -75,6 +83,17 @@ function PaymentDetails() {
     };
    
 
+    const getSetPaymentInfo=async()=>{
+        const res = await getPaymentInfo(user.userId);
+        console.log(res);
+        if(res[0]){
+          setPaymentInfo(true);
+        }
+        setPayment(res);
+        console.log()
+      }
+
+      
    
 
     const boxstyle = {
@@ -246,6 +265,9 @@ function PaymentDetails() {
                         <Button colorScheme="blue" onClick={handleSubmit} type="submit">
                             Submit
                         </Button>
+                        <Button colorScheme="blue" onClick={getSetPaymentInfo} type="submit">
+                            Saved Deatils
+                        </Button>
                     </SimpleGrid>
                     {/* </VStack> */}
                 </form>
@@ -253,6 +275,7 @@ function PaymentDetails() {
             </Box >
             {/* </SimpleGrid> */}
             {/* <Footer /> */}
+            {/* <AllProjects showModal={showAllProjects} hideModal={()=>{setShowAllProjects(false)}} projects ={project} projectInfo={projectInfo}  /> */}
             <ToastContainer />
         </>
     );
