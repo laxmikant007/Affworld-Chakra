@@ -31,6 +31,7 @@ import authRoute from "./routes/auth.js";
 import chatRoute from "./routes/chat.js";
 import messageRoute from "./routes/message.js";
 import paymentDetailsRoute from "./routes/paymentDetails.js"
+import userDetailsRoute from "./routes/userDetails.js";
 
 
 const app = express();
@@ -53,6 +54,9 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/chat", authenticateUser, chatRoute);
 app.use("/api/v1/message", authenticateUser, messageRoute);
 app.use("/api/v1/payment", paymentDetailsRoute);
+app.use("/api/v1/userDetail", userDetailsRoute );
+
+
 
 
 

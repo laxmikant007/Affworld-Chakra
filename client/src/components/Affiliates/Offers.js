@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/ChatProvider";
 import { SideDrawer, MyChats, ChatBox } from "..";
-
+import { useClipboard } from "@chakra-ui/react";
+import { toast } from "react-toastify";
 
 import { Box, Container } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel, TabIndicator, Stack, Tooltip, Button, Text } from '@chakra-ui/react';
@@ -33,13 +34,14 @@ import Loader from "../Loader";
 import { getData } from "../../service/api"
 // import { useNavigate } from "react-router-dom";
 // import { getUserFromLocalStorage } from "../../utils/localStorage";
-
+const URL = "https://affilator.onrender.com"
 const Offers = () => {
   const { user } = useAppContext();
   // const [fetchAgain, setFetchAgain] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [offers, setOffers] = useState("");
+  const { hasCopied, onCopy } = useClipboard();
 
   useEffect(() => {
 
@@ -49,6 +51,7 @@ const Offers = () => {
 
   const fetchData = async () => {
     try {
+      // console.log("current user is --->",user)
       const result = await getData();
       setData(result);
       setLoading(true);
@@ -57,6 +60,30 @@ const Offers = () => {
     }
   };
 
+  // const copyLink = `https://affilator.onrender.com/${item?.code}?${user?._id}`
+  const handleCopyAff = async (item) => {
+
+    const link = `${URL}/${item?.code}?affiliate_id=${user?._id}`
+    console.log("copy clicked");
+    console.log("link is -->", link);
+
+    try {
+     
+      await navigator.clipboard.writeText(link);
+      onCopy();
+      toast.success("Link copied to clipboard", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    } catch (error) {
+      console.error("Error copying link to clipboard:", error);
+      toast.error("Error copying link to clipboard", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    // href={`${URL}/${item?.code}?${user?._id}`} target="_blank"
+
+
+  }
 
 
   return (
@@ -65,7 +92,7 @@ const Offers = () => {
 
       {/* <Container > */}
 
-      <div style={{margin:"20px"}} className="affilate-table-container ">
+      <div style={{ margin: "20px" }} className="affilate-table-container ">
         <div className="affilate-table-container">
           <table className="table table-striped table-hover">
             <thead className="table-primary">
@@ -75,8 +102,8 @@ const Offers = () => {
                 <th className="affilate-deatils-all">Description</th>
                 <th className="affilate-deatils-all">Tags</th>
                 <td className="affilate-deatils-all"> URL</td>
-                <td className="affilate-deatils-all"> code</td>
-                {/* <td className="affilate-deatils-all"> Remarks</td> */}
+                <td className="affilate-deatils-all"> Copy Offer Link</td>
+                {/* <td className="affilate-deatils-all"> code</td> */}
               </tr>
             </thead>
 
@@ -94,14 +121,20 @@ const Offers = () => {
                       <td className="affilate-deatils-description">{item?.description}</td>
                       <td className="affilate-deatils-all">10</td>
                       <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
-                      
-                        <Button colorScheme="purple" style={{  fontWeight: 700 }}>
+
+                        <Button colorScheme="purple" style={{ fontWeight: 700 }}>
                           <a href={item?.url} target="_blank" rel="noopener noreferrer">
                             Link
                           </a>
                         </Button>
                       </td>
-                      <td className="affilate-deatils-all">{item?.code}</td>
+                      <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
+
+                        <Button onClick={() => { handleCopyAff(item) }} colorScheme="teal" style={{ fontWeight: 700 }}>
+                          Copy 
+                        </Button>
+                      </td>
+                      {/* <td className="affilate-deatils-all">{item?.code}</td> */}
                       {/* <td className="affilate-deatils-all">{item?._id}</td> */}
 
                       <td >
@@ -126,7 +159,7 @@ const Offers = () => {
         </div>
 
       </div>
-      {/* </Container> */}
+
 
 
     </div>

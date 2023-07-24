@@ -2,7 +2,7 @@ import paymentDetailsModel from "../models/paymentDetailsModel.js"
 
 export const paymentDetailsController =async(req , res )  =>{
     try {
-        const {userId , account , nameBeni , BankAddress , beniAddress } = req.body
+        const {userId , account , nameBeni , BankAddress , beniAddress , sortCode , iBan ,swift  } = req.body
         console.log(userId);
         // validation 
         if(!userId){
@@ -25,7 +25,7 @@ export const paymentDetailsController =async(req , res )  =>{
 
 
 
-        const paymentDetails  = await new paymentDetailsModel({userId, account , nameBeni , BankAddress , beniAddress }).save();
+        const paymentDetails  = await new paymentDetailsModel({userId, account , nameBeni , BankAddress , beniAddress ,sortCode ,iBan ,swift  }).save();
 
         res.status(201).send({
             success:true,
