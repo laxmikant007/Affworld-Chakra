@@ -8,57 +8,84 @@ import { toast } from "react-toastify";
 import api from "../utils/axios";
 import { addUserToLocalStorage } from "../utils/localStorage";
 import FileBase from "react-file-base64";
+import axios from "axios";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-
+  const URL = "https://affilator-affiliate-api.onrender.com"
   const navigate = useNavigate();
 
+
   const [values, setValues] = useState({
-    username: "",
+    name: "",
     fullName: "",
     email: "",
     password: "",
-    avatar: "",
+    bio: "",
   });
 
   const submitHandler = async () => {
-    const { email, password, username, avatar } = values;
+    const { email, password, name, bio } = values;
 
-    if (!username || !email || !password) {
+    if (!name || !email || !password) {
       toast.error("Please Provide All The Fields");
 
       return;
     }
 
+    // console.log(data);
     try {
-      const { data } = await api.post("/api/v1/auth/register", {
-        username,
-        email,
-        password,
-        avatar,
+      const url = `${URL}/api/affiliates`;
+      console.log(url);
+      const data = { name, email, password, bio, };
+      console.log(data);
+
+      const response = await axios.post(url, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      toast.success(`Hi There! ${response.data.name} `);
+      addUserToLocalStorage(response);
+      // navigate("/");
+      console.log(response);
+      return response.data;
 
-      toast.success(`Hi There! ${data.username} `);
-      addUserToLocalStorage(data);
 
-      navigate("/");
+
+
     } catch (error) {
-      toast.error(error.response.data.msg);
+      console.log("error while submitteing -->", error)
+      toast.error(error);
     }
   };
 
   return (
     <VStack spacing="5px" fontFamily="Poppins">
       <FormControl id="first-name" isRequired>
-        <FormLabel fontFamily="Poppins">username</FormLabel>
+        <FormLabel fontFamily="Poppins">Name</FormLabel>
         <Input
           fontFamily="Poppins"
-          placeholder="username"
-          onChange={(e) => setValues({ ...values, username: e.target.value })}
+          placeholder="Name"
+          onChange={(e) => setValues({ ...values, name: e.target.value })}
         />
       </FormControl>
+
+      <FormControl id="bio" isRequired>
+        <FormLabel fontFamily="Poppins">Bio</FormLabel>
+        <Input
+          type="text"
+          fontFamily="Poppins"
+          placeholder="Your Bio"
+          onChange={(e) => setValues({ ...values, bio: e.target.value })}
+        />
+      </FormControl>
+
+
+
+
+
       <FormControl id="email" isRequired>
         <FormLabel>email</FormLabel>
         <Input
@@ -82,7 +109,7 @@ const Signup = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="pic">
+      {/* <FormControl id="pic">
         <FormLabel>Upload Pic</FormLabel>
         <FileBase
           type="file"
@@ -90,9 +117,9 @@ const Signup = () => {
           multiple={false}
           name="myFile"
           p={1.5}
-          onDone={({ base64 }) => setValues({ ...values, avatar: base64 })}
+          onDone={({ base64 }) => setValues({ ...values, bio: base64 })}
         />
-      </FormControl>
+      </FormControl> */}
       <Button
         background="rgba(67, 43, 255, 0.8)"
         color="white"

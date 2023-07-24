@@ -21,9 +21,13 @@ const ProfileModal = ({ user, children }) => {
     navigate("/paymentDetails")
   }
   const handleClickEdit =()=>{
-    navigate("/userDetails")
+
+    console.log(user);
+    // navigate("/userDetails")
 
   }
+
+
 
   return (
 

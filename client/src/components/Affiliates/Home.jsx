@@ -7,6 +7,7 @@ import { useAppContext } from "../../context/ChatProvider";
 import Loader from "../Loader";
 import { useState , useEffect } from "react";
 import {  getData } from "../../service/api"
+import { afterLoginStorage } from "../../utils/localStorage";
 
 
 // import {Text} from 
@@ -32,6 +33,10 @@ const Home = () => {
         fontWeight: "extrabold"
     }
 
+    const setitemlocal = ()=>{
+        afterLoginStorage()
+    }
+
     return (
         <>
 
@@ -48,6 +53,8 @@ const Home = () => {
 
                 {/* <Button  >Offers</Button> */}
                 <Button style={{ marginTop: "40px" }} colorScheme="purple" onClick={handleClick}> Offers</Button>
+
+                <Button style={{ marginTop: "40px" }} colorScheme="purple" onClick={setitemlocal}> setlocal</Button>
 
 
                 <Text style={{ margin: "20px", padding: "20px", fontSize: "30px", fontWeight: "600" , backgroundColor:"#eef3f7" , borderRadius:"20px" }}>

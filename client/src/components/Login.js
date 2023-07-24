@@ -6,6 +6,8 @@ import { FormControl, FormLabel } from "@chakra-ui/react";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { VStack, Stack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+
 
 import api from "../utils/axios";
 import { addUserToLocalStorage } from "../utils/localStorage";
@@ -22,7 +24,36 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const submitHandler = async () => {
+
+
+  // const submitHandler = async () => {
+  //   setValues({ ...values, loading: true });
+  //   const { email, password } = values;
+  //   if (!email || !password) {
+  //     toast.error("Please Fill All the Fields");
+  //     setValues({ ...values, loading: false });
+  //     return;
+  //   }
+  //   try {
+  //     const { data } = await api.post("/api/v1/auth/login", {
+  //       email,
+  //       password,
+  //     });
+
+  //     toast.success(`Welcome Back! ${data.username}`);
+  //     addUserToLocalStorage(data);
+  //     setValues({ ...values, loading: false });
+  //     navigate("/");
+  //   } catch (error) {
+  //     toast.error(error.response.data.msg);
+  //     setValues({ ...values, loading: false });
+  //   }
+  // };
+
+const handleLogin = async()=>{
+
+    console.log("loginclicked")
+  
     setValues({ ...values, loading: true });
     const { email, password } = values;
     if (!email || !password) {
@@ -31,20 +62,45 @@ const Login = () => {
       return;
     }
     try {
-      const { data } = await api.post("/api/v1/auth/login", {
-        email,
-        password,
-      });
 
-      toast.success(`Welcome Back! ${data.username}`);
-      addUserToLocalStorage(data);
+      const response = await axios.post(
+        'https://affilator-affiliate-api.onrender.com/api/login',
+        new URLSearchParams({
+          'grant_type': '',
+          'username': email,
+          'password': password,
+          'scope': '',
+          'client_id': '',
+          'client_secret': ''
+        }),
+        {
+          headers: {
+            'accept': 'application/json'
+          }
+        }
+      );
+      toast.success(`Welcome Back!  }`);
+      addUserToLocalStorage(response);
       setValues({ ...values, loading: false });
       navigate("/");
+        console.log(response);
+      return response.data;
+      
     } catch (error) {
-      toast.error(error.response.data.msg);
+        console.log("Error while login-->" , error)
+        toast.error(error);
       setValues({ ...values, loading: false });
     }
-  };
+
+
+
+}
+
+
+
+
+
+
 
   return (
     <>
@@ -84,11 +140,15 @@ const Login = () => {
           transform: "translate(0,-5px)",
         }}
         style={{ marginTop: 15 }}
-        onClick={submitHandler}
+        onClick={handleLogin}
         isLoading={values.loading}
       >
         Login
       </Button>
+        {/* <Button onClick={handleLogin} colorScheme="teal">
+          Login Namha
+        </Button> */}
+
       <Button
         variant="solid"
         colorScheme="red"
