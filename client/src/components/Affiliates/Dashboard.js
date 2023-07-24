@@ -6,10 +6,17 @@ import SideBar from "./SideBar";
 import { Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 // import { getUserFromLocalStorage } from "../utils/localStorage";
+import { afterLoginStorage } from "../../utils/localStorage";
+
 
 const Dashboard = () => {
   const { user } = useAppContext();
   const [fetchAgain, setFetchAgain] = useState(false);
+  
+  useEffect(()=>{
+    afterLoginStorage();
+
+  },[])
   
 
 

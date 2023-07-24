@@ -46,9 +46,15 @@ const Signup = () => {
           'Content-Type': 'application/json',
         },
       });
-      toast.success(`Hi There! ${response.data.name} `);
+
+
+
+      toast.success(`Hi There! ${response.data.name} account created Success now Login.... `);
       addUserToLocalStorage(response);
-      // navigate("/");
+      setTimeout(() => {
+        // navigate("/");
+        window.location.reload();
+            }, 3000);
       console.log(response);
       return response.data;
 

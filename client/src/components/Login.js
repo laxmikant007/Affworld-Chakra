@@ -10,7 +10,8 @@ import axios from 'axios';
 
 
 import api from "../utils/axios";
-import { addUserToLocalStorage } from "../utils/localStorage";
+import { addUserToLocalStorage , getUserFromLocalStorage } from "../utils/localStorage";
+
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -53,6 +54,8 @@ const Login = () => {
 const handleLogin = async()=>{
 
     console.log("loginclicked")
+    const user   = getUserFromLocalStorage();
+    console.log("user is -->", user)
   
     setValues({ ...values, loading: true });
     const { email, password } = values;
@@ -79,7 +82,7 @@ const handleLogin = async()=>{
           }
         }
       );
-      toast.success(`Welcome Back!  }`);
+      toast.success(`Welcome Back!`);
       addUserToLocalStorage(response);
       setValues({ ...values, loading: false });
       navigate("/");

@@ -33,9 +33,14 @@ const Home = () => {
         fontWeight: "extrabold"
     }
 
-    const setitemlocal = ()=>{
+    
+    
+    useEffect(()=>{
+        
         afterLoginStorage()
-    }
+    },[])
+
+    
 
     return (
         <>
@@ -54,7 +59,6 @@ const Home = () => {
                 {/* <Button  >Offers</Button> */}
                 <Button style={{ marginTop: "40px" }} colorScheme="purple" onClick={handleClick}> Offers</Button>
 
-                <Button style={{ marginTop: "40px" }} colorScheme="purple" onClick={setitemlocal}> setlocal</Button>
 
 
                 <Text style={{ margin: "20px", padding: "20px", fontSize: "30px", fontWeight: "600" , backgroundColor:"#eef3f7" , borderRadius:"20px" }}>

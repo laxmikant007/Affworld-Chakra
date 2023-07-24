@@ -18,13 +18,13 @@ import "./register.css";
 const Register = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (getUserFromLocalStorage("user")) {
-      setTimeout(() => {
-        navigate("/");
-      }, 3000);
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (getUserFromLocalStorage("user")) {
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 3000);
+  //   }
+  // }, [navigate]);
 
   return (
     <>

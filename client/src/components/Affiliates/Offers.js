@@ -33,10 +33,12 @@ import Loader from "../Loader";
 
 import { getData } from "../../service/api"
 // import { useNavigate } from "react-router-dom";
-// import { getUserFromLocalStorage } from "../../utils/localStorage";
+import { getUserFromLocalStorage , getResFromLocalStorage } from "../../utils/localStorage";
+
 const URL = "https://affilator.onrender.com"
 const Offers = () => {
-  const { user } = useAppContext();
+  const  user   = getUserFromLocalStorage();
+  const res = getResFromLocalStorage();
   // const [fetchAgain, setFetchAgain] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -63,9 +65,11 @@ const Offers = () => {
   // const copyLink = `https://affilator.onrender.com/${item?.code}?${user?._id}`
   const handleCopyAff = async (item) => {
 
-    const link = `${URL}/${item?.code}?affiliate_id=${user?._id}`
+    const link = `${URL}/${item?.code}?affiliate_id=${res.data.affiliate_id}`
     console.log("copy clicked");
     console.log("link is -->", link);
+    console.log("this is res --->", res);
+    console.log("this is user affilatre id-----> :",res.data.affiliate_id);
 
     try {
      
