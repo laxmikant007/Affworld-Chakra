@@ -24,6 +24,9 @@ const Home = () => {
     const handleClick = () => {
         navigate("/affiliate/offers")
     }
+    const ClickConversion = ()=>{
+        navigate("/affiliate/clicks")
+    }
    
 
     const boxstyle = {
@@ -58,6 +61,7 @@ const Home = () => {
 
                 {/* <Button  >Offers</Button> */}
                 <Button style={{ marginTop: "40px" }} colorScheme="purple" onClick={handleClick}> Offers</Button>
+                <Button style={{ marginTop: "40px" , marginLeft: "40px" }} colorScheme="purple" onClick={ClickConversion}> Clicks & Conversion</Button>
 
 
 

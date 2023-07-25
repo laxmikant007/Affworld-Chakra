@@ -225,8 +225,8 @@ const SideDrawer = () => {
               <Avatar
                 size="sm"
                 cursor="pointer"
-                name={user.name}
-                src={user.avatar}
+                name={user?.name}
+                src={user?.avatar}
               />
             </MenuButton>
             <MenuList>
@@ -266,9 +266,9 @@ const SideDrawer = () => {
             ) : (
               searchResult?.map((user) => (
                 <UserListItem
-                  key={user._id}
+                  key={user?._id}
                   user={user}
-                  handleFunction={() => accessChat(user._id)}
+                  handleFunction={() => accessChat(user?._id)}
                 />
               ))
             )}

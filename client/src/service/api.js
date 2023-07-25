@@ -1,9 +1,11 @@
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const URL1="http://localhost:5000"
 // const URL1="https://affworld-chakra-api.onrender.com"
 
 const URL = "https://affilator.onrender.com"
+const URL2 = "https://affilator-affiliate-api.onrender.com"
 // const URL = "process.env.REACT_APP_BASE_URL;"
 
 const KEY = "key";
@@ -33,6 +35,35 @@ export const getData = async () => {
     console.log('error is-->', error);
   }
 };
+
+// export const getClicksData = async () => {
+//   const user = localStorage.getItem("user");
+  
+//   try {
+//     const userData = JSON.parse(user); // Parse the JSON data
+//     const accessToken = userData.data.access_token;
+//      // Access the 'access_token' property
+//      console.log("from apis click con getclick data -->:", accessToken)
+
+
+
+//       const url = `${URL2}/api/analytics/clicks`;
+//       const response = await axios.get(url, {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': `Bearer ${accessToken}`
+
+//         },
+//       });
+//       console.log("data of clicks-->", response)
+//       return   response.data;
+//     } catch (error) {
+//       console.log('error is-->', error);
+//     }
+
+    
+
+// };
 
 export const addCampagin = async (data) => {
   try {
