@@ -128,13 +128,13 @@ const SideDrawer = () => {
     }
   };
 
-  const handleClick = ()=>{
-    console.log("ok")
-  }
+  // const handleClick = ()=>{
+  //   console.log("ok")
+  // }
   
   const btnRef = React.useRef();
   
-  const handleclick = () => {
+  const handleClick = () => {
     navigate("/home")
   }
 
@@ -153,20 +153,23 @@ const SideDrawer = () => {
         p="5px 10px 5px 10px"
         borderWidth="5px"
       >
-        <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
+        <Tooltip label="Manager Sidebar" hasArrow placement="bottom-end">
 
           
-          <Button variant="ghost" onClick={onOpen}>
+          {/* <Button variant="ghost" onClick={onOpen}> */}
             {/* <FiSearch /> */}
             {/* <Text d={{ base: "none", md: "flex" }} px={4}>
               Search User
             </Text> */}
-            <Button>
+            {/* <Button>
             Side Bar
-          </Button>
+          </Button> */}
+          <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+        Open Sidebar
+      </Button>
 
 
-          </Button>
+          {/* </Button> */}
 
           
 
@@ -272,12 +275,12 @@ const SideDrawer = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+      {/* <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
         Open Sidebar
-      </Button>
-      <Button ref={btnRef} colorScheme='teal' onClick={handleclick}>
+      </Button> */}
+      {/* <Button ref={btnRef} colorScheme='teal' onClick={handleclick}>
         Home
-      </Button>
+      </Button> */}
       <Drawer
         isOpen={isOpen}
         placement='left'
@@ -299,16 +302,16 @@ const SideDrawer = () => {
               <Stack bg="gray.100" alignItems={"center"} mb='3' mt='6' spacing='3'>
                 <Heading size='md'>Your Manager</Heading>
                 <Text>
-                 Name : manager
+                 Name : Rishika Jain
                 </Text>
                 <Text>
-                 email : manager@gmail.com
+                 email : Portal@Affworld.in
                 </Text>
                 <Text>
-                 phone : 9544788789
+                 phone : 9116150431
                 </Text>
                 <Text color='blue.600' fontSize='2xl'>
-                 Available $450
+                 Available $
                 </Text>
               </Stack>
             </CardBody>
