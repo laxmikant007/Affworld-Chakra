@@ -32,6 +32,7 @@ import ProfileModal from "./ProfileModal";
 import { removeUserFromLocalStorage } from "../utils/localStorage";
 import { getSender } from "../config/chat";
 
+import managerPhoto from "../assets/img/manager.jpeg"
 
 
 import {
@@ -296,8 +297,13 @@ const SideDrawer = () => {
 
 
           <Card maxW='sm'>
-            <CardBody>
-            <Avatar  style={{margin:"100px"}} size='xl' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
+            <CardBody  >
+            <div style={{ width:"fit-content" , margin:"auto"}}>
+
+            <Avatar  style={{margin:"10px" }} size='xl' name='Dan Abrahmov' src={managerPhoto} />
+            </div>
+
+
            
               <Stack bg="gray.100" alignItems={"center"} mb='3' mt='6' spacing='3'>
                 <Heading size='md'>Your Manager</Heading>
