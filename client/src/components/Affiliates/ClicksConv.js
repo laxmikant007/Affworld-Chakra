@@ -224,10 +224,7 @@ const ClicksConv = () => {
                   <th className="affilate-deatils-all">No.</th>
                   <th className="affilate-deatils-all">Campagin</th>
                   <th className="affilate-deatils-all">Counts</th>
-                  {/* <th className="affilate-deatils-all">Tags</th> */}
-                  <td className="affilate-deatils-all"> URL</td>
-                  <td className="affilate-deatils-all"> Post Back</td>
-                  {/* <td className="affilate-deatils-all"> code</td> */}
+                  <td className="affilate-deatils-all"> Conversions</td>
                 </tr>
               </thead>
 
@@ -240,35 +237,13 @@ const ClicksConv = () => {
                     data.map((item, index) => (
                       <tr key={index}>
                         <td className="affilate-deatils-all">{index + 1}</td>
-                        {/* <td className="affilate-deatils-all">{item?.advitisor_id}</td> */}
                         <td className="affilate-deatils-all">{item?.name}</td>
                         <td className="affilate-deatils-description">{item?.count}</td>
-                        {/* <td className="affilate-deatils-all">10</td> */}
                         <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
-
-                          <Button colorScheme="purple" style={{ fontWeight: 700 }}>
-                            <a href={item?.url} target="_blank" rel="noopener noreferrer">
-                              Link
-                            </a>
-                          </Button>
-                        </td>
-                        <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
-
                           <Button onClick={() => { handlePostback(item) }} colorScheme="teal" style={{ fontWeight: 700 }}>
-                            Show Postbacks
+                            Status
                           </Button>
                         </td>
-                        {/* <td className="affilate-deatils-all">{item?.code}</td> */}
-                        {/* <td className="affilate-deatils-all">{item?._id}</td> */}
-
-                        <td >
-
-                          {/* <Button style={{marginLeft:20}} variant="danger" onClick={()=>deleteOfferCampagin(item._id)}>
-                      Delete
-                    </Button> */}
-
-                        </td>
-
                       </tr>
                     ))
                   ) : <Loader />
@@ -293,7 +268,7 @@ const ClicksConv = () => {
       <Modal onClose={onClose} size={"xl"} isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Post Back Details</ModalHeader>
+          <ModalHeader>Conversion Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {/* <Text>

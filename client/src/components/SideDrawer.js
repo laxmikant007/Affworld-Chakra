@@ -60,6 +60,9 @@ import {  HStack } from "@chakra-ui/react";
 
 import { CalendarIcon } from '@chakra-ui/icons';
 
+import { PhoneIcon, AddIcon, WarningIcon , HamburgerIcon } from '@chakra-ui/icons'
+
+
 
 
 
@@ -165,8 +168,8 @@ const SideDrawer = () => {
             {/* <Button>
             Side Bar
           </Button> */}
-          <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
-        Open Sidebar
+          <Button ref={btnRef}  onClick={onOpen}>
+        <HamburgerIcon/>
       </Button>
 
 
@@ -323,14 +326,14 @@ const SideDrawer = () => {
             </CardBody>
             <Divider />
             <CardFooter>
-              <ButtonGroup spacing='2'>
+              {/* <ButtonGroup spacing='2'>
                 <Button variant='solid' colorScheme='blue'>
                   View Details
                 </Button>
                 <Button variant='solid' colorScheme='blue'>
                   Payment Details
                 </Button>
-              </ButtonGroup>
+              </ButtonGroup> */}
             </CardFooter>
           </Card>
 
