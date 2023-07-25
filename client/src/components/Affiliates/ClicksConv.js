@@ -83,9 +83,24 @@ import React, { useEffect, useState } from "react";
 import { getUserFromLocalStorage, getResFromLocalStorage } from "../../utils/localStorage";
 import { SideDrawer, MyChats, ChatBox } from "..";
 import axios from 'axios';
-import { Button } from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import Loader from "../Loader";
 import { Container, Text, Box } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  
+  
+  FormControl,
+  Input,
+  
+} from "@chakra-ui/react";
+
 
 
 
@@ -96,7 +111,10 @@ import { Container, Text, Box } from "@chakra-ui/react";
 
 
 const ClicksConv = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const [data, setData] = useState([]);
+  const [postData , setPostData] = useState([]);
   const [loading, setLoading] = useState(false);
   const user = getUserFromLocalStorage();
   const URL2 = "https://affilator-affiliate-api.onrender.com"
@@ -108,7 +126,7 @@ const ClicksConv = () => {
       const userData = JSON.parse(user);
       const accessToken = userData.data.access_token;
 
-      console.log("from apis click conv page data -->:", accessToken)
+      // console.log("from apis click conv page data -->:", accessToken)
 
 
 
@@ -120,7 +138,7 @@ const ClicksConv = () => {
 
         },
       });
-      console.log("data of clicks-->", response.data)
+      // console.log("data of clicks-->", response.data)
       setData(response.data);
       setLoading(true);
       return response.data;
@@ -135,8 +153,38 @@ const ClicksConv = () => {
   }, [])
 
 
-  const handlePostback = (item) => {
+  const handlePostback = async(item) => {
     console.log(" post backs campagin id---> ", item.campaign_id)
+    onOpen()
+    const campageinId = item.campaign_id;
+
+    
+    try {
+      // const userData = JSON.parse(user);
+      const accessToken = user.data.access_token;
+
+      console.log("access token in postback -->:", accessToken)
+
+
+
+      const url = `${URL2}/api/analytics/postback?campaign_id=${campageinId}`;
+      const response = await axios.get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+
+        },
+      });
+      console.log("data of post back data------>", response.data)
+      setPostData(response.data);
+      setLoading(true);
+      return response.data;
+
+    } catch (error) {
+      console.log('error is-->', error);
+    }
+
+
   }
 
 
@@ -150,6 +198,9 @@ const ClicksConv = () => {
     display:"flex",
     justifyContent:"center"
   }
+
+  
+
 
 
   return (
@@ -230,6 +281,8 @@ const ClicksConv = () => {
 
             </table>
           </div>
+          
+          
 
         </div>
 
@@ -237,6 +290,87 @@ const ClicksConv = () => {
 
 
       </div>
+      <Modal onClose={onClose} size={"xl"} isOpen={isOpen}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Post Back Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {/* <Text>
+              This is simeple text for  maodl
+            </Text> */}
+            <table className="table table-striped table-hover">
+              <thead className="table-primary">
+                <tr>
+                  <th className="affilate-deatils-all">No.</th>
+                  <th className="affilate-deatils-all">Count</th>
+                  <th className="affilate-deatils-all">Event ID</th>
+                  {/* <th className="affilate-deatils-all">Tags</th> */}
+                  {/* <td className="affilate-deatils-all"> URL</td> */}
+                  {/* <td className="affilate-deatils-all"> Post Back</td> */}
+                  {/* <td className="affilate-deatils-all"> code</td> */}
+                </tr>
+              </thead>
+
+
+              <tbody>
+                {
+
+                  loading ? (
+                    postData?.length > 0 &&
+                    postData.map((item, index) => (
+                      <tr key={index}>
+                        <td className="affilate-deatils-all">{index + 1}</td>
+                        {/* <td className="affilate-deatils-all">{item?.advitisor_id}</td> */}
+                        <td className="affilate-deatils-all">{item?.count}</td>
+                        <td className="affilate-deatils-description">{item?.event_id}</td>
+                        {/* <td className="affilate-deatils-all">10</td> */}
+                        {/* <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
+
+                          <Button colorScheme="purple" style={{ fontWeight: 700 }}>
+                            <a href={item?.url} target="_blank" rel="noopener noreferrer">
+                              Link
+                            </a>
+                          </Button>
+                        </td> */}
+                        {/* <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
+
+                          <Button onClick={() => { handlePostback(item) }} colorScheme="teal" style={{ fontWeight: 700 }}>
+                            Show Postbacks
+                          </Button>
+                        </td> */}
+                        {/* <td className="affilate-deatils-all">{item?.code}</td> */}
+                        {/* <td className="affilate-deatils-all">{item?._id}</td> */}
+
+                        {/* <td > */}
+
+                          {/* <Button style={{marginLeft:20}} variant="danger" onClick={()=>deleteOfferCampagin(item._id)}>
+                      Delete
+                    </Button> */}
+
+                        {/* </td> */}
+
+                      </tr>
+                    ))
+                  ) : <Loader />
+
+
+                }
+              </tbody>
+
+
+
+            </table>
+
+
+
+
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
     </>
   )
