@@ -120,13 +120,13 @@ const ClicksConv = () => {
   const URL2 = "https://affilator-affiliate-api.onrender.com"
 
   const fetchData = async () => {
-    const user = localStorage.getItem("user");
+    // const user = localStorage.getItem("user");
 
+    const accessToken = user.data.access_token;
+    console.log("access token is  -->:", accessToken)
     try {
-      const userData = JSON.parse(user);
-      const accessToken = userData.data.access_token;
+      // const userData = JSON.parse(user);
 
-      // console.log("from apis click conv page data -->:", accessToken)
 
 
 
