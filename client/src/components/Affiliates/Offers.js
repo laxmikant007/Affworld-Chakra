@@ -28,14 +28,11 @@ import {
   MenuOptionGroup,
   MenuDivider,
 } from '@chakra-ui/react'
-
 import Loader from "../Loader";
-
 import { getData } from "../../service/api"
-// import { useNavigate } from "react-router-dom";
 import { getUserFromLocalStorage , getResFromLocalStorage } from "../../utils/localStorage";
 
-const URL = "https://affilator.onrender.com"
+const URL = process.env.REACT_APP_PROD_ADMIN_API;
 const Offers = () => {
   const  user   = getUserFromLocalStorage();
   const res = getResFromLocalStorage();

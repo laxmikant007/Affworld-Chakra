@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-
 import { Button } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { VStack, Stack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-
-
 import api from "../utils/axios";
 import { addUserToLocalStorage , getUserFromLocalStorage } from "../utils/localStorage";
 
@@ -16,6 +13,7 @@ import { addUserToLocalStorage , getUserFromLocalStorage } from "../utils/localS
 const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const URL = process.env.REACT_APP_PROD_API;
 
   const [values, setValues] = useState({
     email: "",
@@ -27,29 +25,6 @@ const Login = () => {
 
 
 
-  // const submitHandler = async () => {
-  //   setValues({ ...values, loading: true });
-  //   const { email, password } = values;
-  //   if (!email || !password) {
-  //     toast.error("Please Fill All the Fields");
-  //     setValues({ ...values, loading: false });
-  //     return;
-  //   }
-  //   try {
-  //     const { data } = await api.post("/api/v1/auth/login", {
-  //       email,
-  //       password,
-  //     });
-
-  //     toast.success(`Welcome Back! ${data.username}`);
-  //     addUserToLocalStorage(data);
-  //     setValues({ ...values, loading: false });
-  //     navigate("/");
-  //   } catch (error) {
-  //     toast.error(error.response.data.msg);
-  //     setValues({ ...values, loading: false });
-  //   }
-  // };
 
 const handleLogin = async()=>{
 
@@ -65,9 +40,8 @@ const handleLogin = async()=>{
       return;
     }
     try {
-
-      const response = await axios.post(
-        'https://affilator-affiliate-api.onrender.com/api/login',
+      const url = `${URL}/api/login`;
+      const response = await axios.post(url,
         new URLSearchParams({
           'grant_type': '',
           'username': email,
@@ -82,7 +56,8 @@ const handleLogin = async()=>{
           }
         }
       );
-      toast.success(`Welcome Back!`);
+      console.log(response);
+      toast.success(`Welcome Back! to Affworld!`);
       addUserToLocalStorage(response);
       setValues({ ...values, loading: false });
       navigate("/");
@@ -90,8 +65,9 @@ const handleLogin = async()=>{
       return response.data;
       
     } catch (error) {
+
         console.log("Error while login-->" , error)
-        toast.error(error);
+        toast.error(error.response.data.detail);
       setValues({ ...values, loading: false });
     }
 

@@ -13,7 +13,7 @@ import axios from "axios";
 const Signup = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const URL = "https://affilator-affiliate-api.onrender.com"
+  const URL = process.env.REACT_APP_PROD_API;
   const navigate = useNavigate();
 
 
@@ -34,7 +34,7 @@ const Signup = () => {
       return;
     }
 
-    // console.log(data);
+    console.log( "this is url from env --->",URL);
     try {
       const url = `${URL}/api/affiliates`;
       console.log(url);

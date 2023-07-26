@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const URL1="http://localhost:5000"
 // const URL1="https://affworld-chakra-api.onrender.com"
 
-const URL = "https://affilator.onrender.com"
+const URL = process.env.REACT_APP_PROD_ADMIN_API;
 const URL2 = "https://affilator-affiliate-api.onrender.com"
 // const URL = "process.env.REACT_APP_BASE_URL;"
 

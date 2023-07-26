@@ -1,10 +1,12 @@
 import axios from "axios";
 
+
 export const afterLoginStorage = async()=>{
+  const URL = process.env.REACT_APP_PROD_API
   try {
     const user = localStorage.getItem("user");
     if (user) {
-      const url = "https://affilator-affiliate-api.onrender.com/api/affiliates"
+      const url = `${URL}/api/affiliates`
       try {
         const userData = JSON.parse(user); // Parse the JSON data
         const accessToken = userData.data.access_token; // Access the 'access_token' property
