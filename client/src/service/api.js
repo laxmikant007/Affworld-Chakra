@@ -21,6 +21,7 @@ const config={
 
 
 export const getData = async () => {
+  
   try {
   
     const url = `${URL}/campaign/?api_key=${KEY}`;
