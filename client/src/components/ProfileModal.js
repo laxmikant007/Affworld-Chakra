@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getResFromLocalStorage } from "../utils/localStorage";
-
+import avatar from "../assets/img/avatar.png";
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate(); 
@@ -26,6 +26,10 @@ const ProfileModal = ({ user, children }) => {
     console.log(user);
     // navigate("/userDetails")
 
+  }
+
+  const handleFinance = ()=>{
+    navigate("/finance");
   }
 
   const user1  = getResFromLocalStorage();
@@ -68,14 +72,15 @@ const ProfileModal = ({ user, children }) => {
               borderRadius="50%"
               margin="10px"
               boxSize="150px"
-              src={"https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"}
+              src={avatar}
               alt={user1?.data.name}
             />
-            <Text bg={"gray.100"}  fontSize={{ base: "28px", md: "30px" }} fontFamily="Poppins">
+            <Text bg={"gray.100"}  fontSize="18" margin="10px" fontFamily="Poppins">
               Email: {user1?.data.email}
             </Text>
             <Button style={{ marginTop: "20px" }} colorScheme="purple" onClick={handleClick}> Payment Details</Button>
             <Button style={{ marginTop: "20px" }} colorScheme="purple" onClick={handleClickEdit}> Edit Details</Button>
+            <Button style={{ marginTop: "20px" }} colorScheme="purple" onClick={handleFinance}> Finance</Button>
 
           </ModalBody>
           <ModalFooter>

@@ -8,7 +8,7 @@ export const afterLoginStorage = async()=>{
       try {
         const userData = JSON.parse(user); // Parse the JSON data
         const accessToken = userData.data.access_token; // Access the 'access_token' property
-        console.log("Access Token:", accessToken);
+        // console.log("Access Token:", accessToken);
        
         const res = await axios.get(url ,{
       
@@ -18,7 +18,7 @@ export const afterLoginStorage = async()=>{
         }
       
     })
-    console.log("response is -->",res);
+    // console.log("response is -->",res);
     localStorage.setItem("res", JSON.stringify(res));
     return res.data;
 

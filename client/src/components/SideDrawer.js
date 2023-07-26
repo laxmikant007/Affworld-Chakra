@@ -36,31 +36,33 @@ import managerPhoto from "../assets/img/manager.jpeg"
 
 
 import {
-  
-  
+
+
   DrawerFooter,
   DrawerHeader,
-  
-  
+
+
   DrawerCloseButton,
   Image,
   Stack,
-  
+
   Heading,
   Divider,
   ButtonGroup
-  
-  
+
+
 
 } from '@chakra-ui/react';
 
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/card'
 
-import {  HStack } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 
 import { CalendarIcon } from '@chakra-ui/icons';
 
-import { PhoneIcon, AddIcon, WarningIcon , HamburgerIcon } from '@chakra-ui/icons'
+import { PhoneIcon, AddIcon, WarningIcon, HamburgerIcon } from '@chakra-ui/icons'
+
+import avatar from "../assets/img/avatar.png";
 
 
 
@@ -135,11 +137,11 @@ const SideDrawer = () => {
   // const handleClick = ()=>{
   //   console.log("ok")
   // }
-  
+
   const btnRef = React.useRef();
-  
+
   const handleClick = () => {
-    navigate("/home")
+    navigate("/");
   }
 
 
@@ -152,30 +154,30 @@ const SideDrawer = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        bg="white"
+        bg="gray.200"
         w="100%"
         p="5px 10px 5px 10px"
         borderWidth="5px"
       >
         <Tooltip label="Manager Sidebar" hasArrow placement="bottom-end">
 
-          
+
           {/* <Button variant="ghost" onClick={onOpen}> */}
-            {/* <FiSearch /> */}
-            {/* <Text d={{ base: "none", md: "flex" }} px={4}>
+          {/* <FiSearch /> */}
+          {/* <Text d={{ base: "none", md: "flex" }} px={4}>
               Search User
             </Text> */}
-            {/* <Button>
+          {/* <Button>
             Side Bar
           </Button> */}
-          <Button ref={btnRef}  onClick={onOpen}>
-        <HamburgerIcon/>
-      </Button>
+          <Button ref={btnRef} onClick={onOpen}>
+            <HamburgerIcon />
+          </Button>
 
 
           {/* </Button> */}
 
-          
+
 
 
         </Tooltip>
@@ -223,26 +225,44 @@ const SideDrawer = () => {
               ))}
             </MenuList>
           </Menu>
-          <Menu>
+          <Menu bg="gray.200"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="column"
+
+          >
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
               <Avatar
                 size="sm"
                 cursor="pointer"
                 name={user?.name}
-                src={user?.avatar}
+                src={avatar}
               />
             </MenuButton>
-            <MenuList>
-              <MenuItem>My Profile</MenuItem>
+            <MenuList
+            borderRadius="10"
+            bg="gray.200"
+             display="flex"
+              alignItems="center"
+              justifyContent="center"
+              flexDirection="column">
+              <MenuItem display="flex"
+                alignItems="center"
+                justifyContent="center"
+                flexDirection="column">My Profile</MenuItem>
               <ProfileModal user={user} />
               <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              <MenuItem display="flex"
+                alignItems="center"
+                justifyContent="center"
+                flexDirection="column" onClick={logoutHandler}>Logout</MenuItem>
             </MenuList>
           </Menu>
         </div>
       </Box>
 
-      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+      <Drawer bg="gray.200" placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <Text
@@ -290,37 +310,38 @@ const SideDrawer = () => {
         placement='left'
         onClose={onClose}
         finalFocusRef={btnRef}
+        bg="gray.200"
       >
         <DrawerOverlay />
         <DrawerContent >
           <DrawerCloseButton />
 
-         
-         
+
+
 
 
           <Card maxW='sm'>
             <CardBody  >
-            <div style={{ width:"fit-content" , margin:"auto"}}>
+              <div style={{ width: "fit-content", margin: "auto" }}>
 
-            <Avatar  style={{margin:"10px" }} size='xl' name='Dan Abrahmov' src={managerPhoto} />
-            </div>
+                <Avatar style={{ margin: "10px" }} size='xl' name='Dan Abrahmov' src={managerPhoto} />
+              </div>
 
 
-           
+
               <Stack bg="gray.100" alignItems={"center"} mb='3' mt='6' spacing='3'>
                 <Heading size='md'>Your Manager</Heading>
                 <Text>
-                 Name : Rishika Jain
+                  Name : Rishika Jain
                 </Text>
                 <Text>
-                 email : Portal@Affworld.in
+                  email : Portal@Affworld.in
                 </Text>
                 <Text>
-                 phone : 9116150431
+                  phone : 9116150431
                 </Text>
                 <Text color='blue.600' fontSize='2xl'>
-                 Available $
+                  Available $
                 </Text>
               </Stack>
             </CardBody>
@@ -345,7 +366,7 @@ const SideDrawer = () => {
             <Input placeholder='Type here...' />
           </DrawerBody> */}
 
-            {/* <DrawerFooter>
+          {/* <DrawerFooter>
               <Button variant='outline' mr={3} onClick={onClose}>
                 Cancel
               </Button>
@@ -353,10 +374,10 @@ const SideDrawer = () => {
             </DrawerFooter> */}
         </DrawerContent>
 
-        
 
 
-          
+
+
 
 
       </Drawer>

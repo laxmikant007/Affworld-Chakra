@@ -24,14 +24,14 @@ const App = () => {
       <Routes>
       
 
-        <Route path="/" element={<Dashboard />} />
+        {/* <Route path="/" element={<Dashboard />} /> */}
         <Route path="/register" element={<Register />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/affiliate/offers" element={<Offers />} />
         <Route path="affiliate/clicks" element={<ClicksConv />} />
 
 
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/paymentDetails" element={<PaymentDetails />} />
         <Route path="/UserDetails" element={<UserDetails />} />
         <Route path="/finance" element={<Finance />} />
