@@ -14,43 +14,28 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-
-
-  FormControl,
-  Input,
-
 } from "@chakra-ui/react";
+import { fetchDataClick, postDataClick } from "../../service/api";
+import { toast } from "react-toastify";
 
 
 const ClicksConv = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
   const [data, setData] = useState([]);
   const [postData, setPostData] = useState([]);
   const [loading, setLoading] = useState(false);
   const user = getUserFromLocalStorage();
   const URL2 = process.env.REACT_APP_PROD_API;
+  // const accessToken = user.data.access_token;
 
   const fetchData = async () => {
-    const accessToken = user.data.access_token;
-    console.log("access token is  -->:", accessToken)
     try {
-
-      const url = `${URL2}/api/analytics/clicks`;
-      const response = await axios.get(url, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-
-        },
-      });
-      console.log("data of clicks-->", response.data)
-      setData(response.data);
+      const response = await fetchDataClick();
+      setData(response);
       setLoading(true);
-      return response.data;
-
     } catch (error) {
-      console.log('error is-->', error);
+      console.log("Error While Fetching data click --->",error)
+      toast.error("Error in Fetching Data");
     }
   };
 
@@ -58,49 +43,24 @@ const ClicksConv = () => {
     fetchData();
   }, [])
 
-
   const handlePostback = async (item) => {
-    console.log(" post backs campagin id---> ", item.campaign_id)
     onOpen()
-    const campageinId = item.campaign_id;
-
-
     try {
-      // const userData = JSON.parse(user);
-      const accessToken = user.data.access_token;
-
-      console.log("access token in postback -->:", accessToken)
-
-
-
-      const url = `${URL2}/api/analytics/postback?campaign_id=${campageinId}`;
-      const response = await axios.get(url, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-
-        },
-      });
-      console.log("data of post back data------>", response.data)
-      setPostData(response.data);
+      const response = await postDataClick(item);
+      console.log("data of post back data------>", response)
+      setPostData(response);
       setLoading(true);
-      return response.data;
-
     } catch (error) {
       console.log('error is-->', error);
+      toast.error("Error in Fetching Status");
     }
-
-
   }
-
-
   const boxstyle = {
     bgGradient: "linear(to-l, #7928CA, #FF0080)",
     bgClip: "text",
     fontSize: "4xl",
     fontWeight: "extrabold",
     margin: "auto",
-
     display: "flex",
     justifyContent: "center"
   }

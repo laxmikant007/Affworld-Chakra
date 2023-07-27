@@ -101,7 +101,6 @@ const Offers = () => {
                 <th className="affilate-deatils-all">No.</th>
                 <th className="affilate-deatils-all">Campagin</th>
                 <th className="affilate-deatils-all">Description</th>
-                <th className="affilate-deatils-all">Tags</th>
                 <td className="affilate-deatils-all"> URL</td>
                 <td className="affilate-deatils-all"> Copy Offer Link</td>
                 {/* <td className="affilate-deatils-all"> code</td> */}
@@ -120,7 +119,6 @@ const Offers = () => {
                       {/* <td className="affilate-deatils-all">{item?.advitisor_id}</td> */}
                       <td className="affilate-deatils-all">{item?.name}</td>
                       <td className="affilate-deatils-description">{item?.description}</td>
-                      <td className="affilate-deatils-all">10</td>
                       <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
 
                         <Button colorScheme="purple" style={{ fontWeight: 700 }}>

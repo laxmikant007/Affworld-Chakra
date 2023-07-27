@@ -1,14 +1,15 @@
 import axios from 'axios'
 import { toast } from 'react-toastify';
-
+import { getUserFromLocalStorage } from '../utils/localStorage';
 const URL1="http://localhost:5000"
 // const URL1="https://affworld-chakra-api.onrender.com"
 
 const URL = process.env.REACT_APP_PROD_ADMIN_API;
-const URL2 = "https://affilator-affiliate-api.onrender.com"
+const URL2 = process.env.REACT_APP_PROD_API;
 // const URL = "process.env.REACT_APP_BASE_URL;"
-
 const KEY = "key";
+const user = getUserFromLocalStorage();
+
 
 
 const config={
@@ -18,8 +19,6 @@ const config={
 }
 
 //All are Offer/Campagin Section 
-
-
 export const getData = async () => {
   
   try {
@@ -37,34 +36,7 @@ export const getData = async () => {
   }
 };
 
-// export const getClicksData = async () => {
-//   const user = localStorage.getItem("user");
-  
-//   try {
-//     const userData = JSON.parse(user); // Parse the JSON data
-//     const accessToken = userData.data.access_token;
-//      // Access the 'access_token' property
-//      console.log("from apis click con getclick data -->:", accessToken)
 
-
-
-//       const url = `${URL2}/api/analytics/clicks`;
-//       const response = await axios.get(url, {
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer ${accessToken}`
-
-//         },
-//       });
-//       console.log("data of clicks-->", response)
-//       return   response.data;
-//     } catch (error) {
-//       console.log('error is-->', error);
-//     }
-
-    
-
-// };
 
 export const addCampagin = async (data) => {
   try {
@@ -180,4 +152,49 @@ export const getPaymentInfo = async(id)=>{
   catch(error){
     console.log("error while getting projects ", error.message);
   }
+}
+
+
+// ++++++++++++++++++++++++++++++++++++++Click conversion +++++++++++++++++++++++++++++++++++++++++++++
+
+
+export const fetchDataClick = async () => {
+  const accessToken = user.data.access_token;
+  console.log("access token is from apis   -->:", accessToken)
+  try {
+    const url = `${URL2}/api/analytics/clicks`;
+    console.log("URL is -->", url)
+
+    const response = await axios.get(url , {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+
+      },}
+    );
+    return response.data;
+  }
+    catch (error) {
+      console.log(error)
+    }
+
+}
+
+export const postDataClick = async (item) => {
+  const accessToken = user.data.access_token;
+  const campageinId = item.campaign_id;
+  try {
+    const url = `${URL2}/api/analytics/postback?campaign_id=${campageinId}`;
+    const response = await axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+    return response.data;
+  }
+  catch (error) {
+    console.log("this is error while getting data in apis data----->",error);
+
+  } 
 }

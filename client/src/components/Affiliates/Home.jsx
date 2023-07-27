@@ -1,27 +1,12 @@
 import React from "react";
-// import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { Button, Container, Text, Box, SimpleGrid } from "@chakra-ui/react";
-import { SideDrawer, MyChats, ChatBox } from "..";
+import { useNavigate } from "react-router-dom";
+import { Button, Text, Box, SimpleGrid } from "@chakra-ui/react";
+import { SideDrawer } from "..";
 import { useAppContext } from "../../context/ChatProvider";
-import Loader from "../Loader";
 import { useState, useEffect } from "react";
-import { getData } from "../../service/api"
 import { afterLoginStorage, getResFromLocalStorage } from "../../utils/localStorage";
 import { motion, useSpring } from "framer-motion";
 import hero from "../../assets/img/homesc.gif";
-import styled from "styled-components";
-
-
-
-
-
-
-// import {Text} from 
-
-
-
-
 
 const Home = () => {
 
