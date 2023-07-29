@@ -17,101 +17,143 @@ import {
     SimpleGrid
 } from "@chakra-ui/react";
 import { getPaymentInfo } from '../../service/api';
+import { getUserFromLocalStorage } from '../../utils/localStorage';
 
 import PaymentModal from "./modal/PaymentModal"
+import axios from 'axios';
 
 
 function PaymentDetails() {
-    const { user } = useAppContext();
-    const [account , setAccount] = useState();
+    // const { user } = useAppContext();
+    const user   = getUserFromLocalStorage();
+
+    const [account, setAccount] = useState();
     const [nameBeni, setNameBeni] = useState();
     const [bankName, setBankName] = useState();
     const [BankAddress, setBankAddress] = useState();
-    const [beniAddress , setBeniAddress] = useState();
-    const [sortCode , setSortCode] = useState();
-    const [iBan , setIBan] = useState();
-    const [swift , setSwift] = useState();
-    const [role, setRole] = useState('');
+    const [beniAddress, setBeniAddress] = useState();
+    const [sortCode, setSortCode] = useState();
+    const [iBan, setIBan] = useState();
+    const [swift, setSwift] = useState();
+    const [accountType, setAccountType] = useState('');
 
 
-    const [paymentInfo,setPaymentInfo] = useState(false);
-    const [payment,setPayment] = useState([]);
-    const [showAllProjects,setShowAllProjects] = useState(false);
+    const [paymentInfo, setPaymentInfo] = useState(false);
+    const [payment, setPayment] = useState([]);
+    const [showAllProjects, setShowAllProjects] = useState(false);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         getSetPaymentInfo();
         // getSetProfile();
-      },[])
+    }, [])
+
+    const resetForm = () => {
+        setAccount('');
+        setNameBeni('');
+        setBankName('');
+        setBankAddress('');
+        setBeniAddress('');
+        setSortCode('');
+        setAccountType('');
+        setIBan('');
+        setSwift('');
 
 
-  
+        // Reset other form fields to their initial values...
+      };
+
+
+
     const handleSubmit = async (event) => {
 
         event.preventDefault();
+        console.log("this is user in payment info--->",user)
+        const accessToken = user.data.access_token;
+        console.log("access token is from Paymentdetails   -->:", accessToken)
+
 
         const data = {
-            userId:user?._id,
-            account,
-            nameBeni,
-            bankName,
-            BankAddress,
-            beniAddress,
-            sortCode,
-            iBan,
-            swift,
-            role
+
+            account_number: account,
+            beneficiary_name: nameBeni,
+            bank_name: bankName,
+            bank_address: BankAddress,
+            beneficiary_address: beniAddress,
+            sort_code: sortCode,
+            iban: iBan,
+            swift: swift,
+            account_type: accountType
         };
 
-        console.log("User is :" , user)
-    
+        console.log("User is :", user);
+        console.log("Data we get form front end--->", data)
+
+        const url   = `${process.env.REACT_APP_PROD_API}/api/affiliates/payment_info`;
+        console.log("this is surl -->",url);
         try {
-            const response = await fetch(`${process.env.REACT_APP_API}/api/v1/payment/paymentDetails`, {
-                method: 'POST',
+
+
+            const response = await axios.post(url,data, {
                 headers: {
                     'Content-Type': 'application/json',
-            
-                },
-                body: JSON.stringify(data)
-            });
-    
-            if (response.ok) {
-               
-                toast.success('Form data submitted successfully!');
-            } else {
-              
-                toast.error('Error submitting form data. Please try again.');
-            }
-        } catch (error) {
-         
-            toast.error('Error submitting form data. Please try again.');
-        }
-        
-    };
-   
+                    'Authorization': `Bearer ${accessToken}`
 
-    const getSetPaymentInfo=async()=>{
-        const res = await getPaymentInfo(user._id);
-        console.log("this is new user id :",user._id)
+
+                },
+               
+            });
+            console.log("this is respos form payment detials -->", response);
+            if(response.status === 200){
+                toast.success("Payment Details saved Success!");
+                resetForm();
+                // await getPaymentInfo();
+                
+            }
+            return response.data;
+
+            
+
+           
+        } catch (error) {
+            console.log("error in submitting dataa is --->", error);
+            toast.error( error.response.data.detail);
+        }
+
+    };
+
+
+    const getSetPaymentInfo = async () => {
+
         
-        console.log("user details are" ,user)
-        console.log(res);
-        if(res[0]){
-          setPaymentInfo(true);
+        try {
+            const res = await getPaymentInfo();
+            console.log("this is response payment details -->",res);
+
+        if (res[0]) {
+            setPaymentInfo(true);
         }
         setPayment(res);
-        console.log()
-      }
+        setPaymentInfo(res);
+            
+        } catch (error) {
+            console.log("Error while getting payment details-->", error);
+            
+        }
 
-      const handlesavedpayment =async()=>{
+        
+        
+    }
+
+    const handlesavedpayment = async () => {
 
         setShowAllProjects(true);
-        getSetPaymentInfo();
+        // getSetPaymentInfo();
 
-      }
+    }
 
-      
-   
+
+
 
     const boxstyle = {
         bgGradient: "linear(to-l, #7928CA, #FF0080)",
@@ -131,7 +173,7 @@ function PaymentDetails() {
 
 
 
-    
+
     return (
         <>
             {user && <SideDrawer />}
@@ -139,10 +181,10 @@ function PaymentDetails() {
             <Box sx={boxstyle}>
                 <Text> Payment Details </Text>
             </Box>
-            <Box  maxWidth={"1200px"} sx={boxstyleForm} bg={"gray.100"} className="labour-form" >
+            <Box maxWidth={"1200px"} sx={boxstyleForm} bg={"gray.100"} className="labour-form" >
 
                 <form className="roleform" onSubmit={handleSubmit}>
-                   
+
                     <SimpleGrid p={10} minChildWidth={250} spacing={10} >
                         <Box>
                             <FormControl>
@@ -247,23 +289,18 @@ function PaymentDetails() {
                         </Box>
                         <Box>
                             <FormControl>
-                                <FormLabel htmlFor="role">Type of Affiliate:</FormLabel>
+                                <FormLabel htmlFor="role">Type of Account:</FormLabel>
                                 <Select
                                     id="role"
                                     cursor="pointer"
-                                    value={role}
-                                    onChange={(e) => setRole(e.target.value)}
+                                    value={accountType}
+                                    onChange={(e) => setAccountType(e.target.value)}
                                 >
                                     <option value="">--Please select--</option>
-                                    <option value="Construction">Construction Labour</option>
-                                    <option value="Tiles">Tiles | Marble | Work Helper</option>
-                                    <option value="Loading">Loading | Unloading</option>
-                                    <option value="Cleaning">Cleaning Workers</option>
-                                    <option value="Shifting">Home Shifting</option>
-                                    <option value="Warehouse">Godam | Warehouse</option>
-                                    <option value="Factory">Factory Labour</option>
-                                    <option value="Gardening">Gardening Work</option>
-                                    <option value="Other">Other Labour Works</option>
+                                    <option value="Current">Current Account</option>
+                                    <option value="Saving">Saving Account</option>
+                                    <option value="Salary">Salary Account</option>
+                                    <option value="NRI">NRI Account</option>
                                 </Select>
                             </FormControl>
                         </Box>
@@ -285,14 +322,14 @@ function PaymentDetails() {
                     </SimpleGrid>
                     {/* </VStack> */}
                 </form>
-                        <Button colorScheme="blue"  onClick={()=>{handlesavedpayment()}} type="submit">
-                            Saved Deatils
-                        </Button>
+                <Button colorScheme="blue" onClick={() => { handlesavedpayment() }} type="submit">
+                    Saved Deatils
+                </Button>
 
             </Box >
             {/* </SimpleGrid> */}
             {/* <Footer /> */}
-            <PaymentModal showModal={showAllProjects} hideModal={()=>{setShowAllProjects(false)}} projects ={payment} projectInfo={paymentInfo}  />
+            <PaymentModal showModal={showAllProjects} hideModal={() => { setShowAllProjects(false) }} projects={payment} projectInfo={paymentInfo} />
             <ToastContainer />
         </>
     );
