@@ -63,7 +63,7 @@ const Signup = () => {
 
     } catch (error) {
       console.log("error while submitteing -->", error)
-      toast.error(error);
+      toast.error(error.response.data.detail);
     }
   };
 

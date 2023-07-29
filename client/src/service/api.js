@@ -143,14 +143,24 @@ export const getPaymentDetails=async(id)=>{
   }
 }
 
-export const getPaymentInfo = async(id)=>{
+export const getPaymentInfo = async()=>{
+  const url = `${URL2}/api/affiliates/payment_info`;
+  const accessToken = user.data.access_token;
+
+
   try{
-    const result=await axios.get(`${URL1}/api/v1/payment/getPaymentDetails/${id}`);
+    const response= await axios.get(url , {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      }
+    }
+    );
     // console.log("====",result.data);
-    return result.data;
+    return response.data;
   }
   catch(error){
-    console.log("error while getting projects ", error.message);
+    console.log("error while getting payment info in apis js ", error);
   }
 }
 
