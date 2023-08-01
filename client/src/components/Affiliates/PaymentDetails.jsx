@@ -107,7 +107,7 @@ function PaymentDetails() {
             if(response.status === 200){
                 toast.success("Payment Details saved Success!");
                 resetForm();
-                // await getPaymentInfo();
+                await getPaymentInfo();
                 
             }
             return response.data;

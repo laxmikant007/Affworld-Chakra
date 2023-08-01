@@ -168,27 +168,27 @@ export const getPaymentInfo = async()=>{
 // ++++++++++++++++++++++++++++++++++++++Click conversion +++++++++++++++++++++++++++++++++++++++++++++
 
 
-export const fetchDataClick = async () => {
-  const accessToken = user.data.access_token;
-  console.log("access token is from apis   -->:", accessToken)
-  try {
-    const url = `${URL2}/api/analytics/clicks`;
-    console.log("URL is -->", url)
+// export const fetchDataClick = async () => {
+//   const accessToken = user.data.access_token;
+//   console.log("access token is from apis   -->:", accessToken)
+//   try {
+//     const url = `${URL2}/api/analytics/clicks`;
+//     console.log("URL is in apis -->", url)
 
-    const response = await axios.get(url , {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+//     const response = await axios.get(url , {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${accessToken}`
 
-      },}
-    );
-    return response.data;
-  }
-    catch (error) {
-      console.log(error)
-    }
+//       },}
+//     );
+//     return response.data;
+//   }
+//     catch (error) {
+//       console.log(error)
+//     }
 
-}
+// }
 
 export const postDataClick = async (item) => {
   const accessToken = user.data.access_token;

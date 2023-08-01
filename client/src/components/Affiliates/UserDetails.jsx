@@ -18,6 +18,11 @@ import {
     Text,
     SimpleGrid
 } from "@chakra-ui/react";
+import { EmailIcon } from '@chakra-ui/icons';
+import { ViewIcon } from "@chakra-ui/icons";
+import AddLocationIcon from '@mui/icons-material/AddLocation';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 function UserDetails() {
     const { user } = useAppContext();
@@ -99,10 +104,46 @@ function UserDetails() {
     }
     const boxstyleForm = {
         m: "auto",
+        // margiinTop: "10px",
         border: "2px solid white",
+        padding: "10px",
+        borderRadius: "10px",
+    }
+
+    const boxstyleForm1 = {
+
+        m: "auto",
+      
+        display: "flex",
+        alignitems: "left",
+        justifycontent: "left",
+        padding: "10px",
+        borderRadius: "10px",
+    }
+    const boxstyleForm2 = {
+        m: "auto",
+        border: "2px solid black",
+
 
         padding: "10px",
-        borderRadius: "20px",
+        borderRadius: "10px",
+    }
+
+    const innerbox = {
+        border: "0.5px solid gray",
+        borderRadius: "10px",
+        padding: "10px",
+        width: "130px",
+        marginLeft: "10px"
+    }
+
+    const textinBox = {
+        marginLeft: "10px",
+        fontWeight: "bold",
+        marginTop: "10px",
+        cursor: "pointer",
+
+
     }
 
 
@@ -115,7 +156,139 @@ function UserDetails() {
             <Box sx={boxstyle}>
                 <Text> User Details </Text>
             </Box>
-            <Box maxWidth={"1200px"} sx={boxstyleForm} bg={"gray.100"} className="labour-form" >
+            <SimpleGrid p={5} minChildWidth={300} spacing={5}>
+
+                <Box display={"flex"} flexDirection={"column"} maxWidth={"1200px"} height={250} sx={boxstyleForm1} bg={"gray.100"}>
+
+                    <Box width={"100%"} height={180} bg={"gray.100"} >
+
+                        <Box display={"flex"} flexDirection={"row"} width={"95%"} h={150} m={5} marginTop={3} >
+                            
+                            <Box bg={'blue.100'} borderRadius={"10px"} h={150} w={40} >
+                                <Text display={"flex"} justifyContent={"center"} alignItems={"center"} alignContent={"center"}>
+
+                                    Profile Photo
+
+                                </Text>
+
+
+                            </Box>
+
+                            <Box marginLeft={10} h={150} w={"100%"} >
+                                <Box h={"50%"} display={"flex"} flexDirection={"row"} justifyContent={"space-between"}>
+
+                                    <Box display={"flex"} flexDirection={"column"}>
+
+
+                                        <Box h={"50%"} >
+                                            <Text fontWeight={700}>Umashankar (#8298)</Text>
+                                            {/* <Text fontWeight={700}>Umashankar (#8298)</Text> */}
+
+
+                                        </Box>
+                                        <Box display={"flex"} flexDirection={"row"} h={"50%"} >
+                                            <Text fontWeight={400}>
+                                                <AccountCircleIcon style={{ cursor: "pointer" }} fontSize='small' />&nbsp;
+                                                Active</Text>
+                                            <Text marginLeft={10} fontWeight={400}>
+                                                <AddLocationIcon style={{ cursor: "pointer" }} fontSize='small' />
+                                                India</Text>
+                                            <Text marginLeft={10} fontWeight={400}>
+                                                <EmailIcon style={{ cursor: "pointer" }} />&nbsp;
+                                                umashanker12@gmail.com</Text>
+
+                                            {/* <Text fontWeight={700}>Umashankar (#8298)</Text> */}
+
+
+                                        </Box>
+                                    </Box>
+                                    <Box display={'flex'} flexDirection={"row"} marginTop={"10px"} width={"40%"} h={"60%"} >
+
+                                        <Button colorScheme="purple" > MEMBER  31-07-23</Button>
+                                        <Button marginLeft={10} colorScheme="purple" > RESET PASSWORD</Button>
+
+                                    </Box>
+
+                                </Box>
+
+                                <Box display={"flex"} flexDirection={"row"} h={"50%"} >
+                                {/* <SimpleGrid   minChildWidth="100px" spacing={2}   > */}
+  
+                                    <Box sx={innerbox}>
+                                        <Box>
+
+                                            1
+                                        </Box>
+                                        <Box>
+                                            <Text color={'green.600'} fontWeight={"bold"}>Earnings(INR)</Text>
+                                        </Box>
+
+                                    </Box>
+                                    <Box sx={innerbox}>
+                                        <Box>
+
+                                            1
+                                        </Box>
+                                        <Box>
+                                            <Text color={'blue.500'} fontWeight={"bold"}>Offers</Text>
+                                        </Box>
+                                    </Box>
+                                    <Box sx={innerbox}>
+                                        <Box>
+
+                                            1345
+                                        </Box>
+                                        <Box>
+                                            <Text color={'orange.500'} fontWeight={"bold"}>Clicks</Text>
+
+                                        </Box>
+                                    </Box>
+                                    <Box sx={innerbox}>
+                                        <Box>
+
+                                            1
+                                        </Box>
+                                        <Box>
+                                            <Text color={'purple.500'} fontWeight={"bold"}>Offers</Text>
+
+                                        </Box>
+                                    </Box>
+                                    {/* </SimpleGrid> */}
+
+                                </Box>
+
+
+                            </Box>
+
+
+
+
+                        </Box>
+
+
+                    </Box>
+
+                    <Box display={"flex"} >
+                        <Text sx={textinBox} >Overview</Text>
+                        <Text sx={textinBox}>Managers </Text>
+
+                        <Text sx={textinBox}>Campaigns </Text>
+                        <Text sx={textinBox}>PostBacks</Text>
+                        <Text sx={textinBox}>Payouts</Text>
+
+                        <Text sx={textinBox}>Comapany</Text>
+                        <Text sx={textinBox}>Billing</Text>
+
+
+
+                    </Box>
+
+
+
+                </Box>
+
+            </SimpleGrid>
+            <Box maxWidth={"1200px"} sx={boxstyleForm} bg={"gray.100"}  >
 
                 <form className="roleform" onSubmit={handleSubmit}>
 
