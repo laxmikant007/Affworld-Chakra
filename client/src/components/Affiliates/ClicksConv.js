@@ -1,11 +1,11 @@
 
 import React, { useEffect, useState } from "react";
-import { getUserFromLocalStorage, getResFromLocalStorage } from "../../utils/localStorage";
-import { SideDrawer, MyChats, ChatBox } from "..";
+import { getUserFromLocalStorage } from "../../utils/localStorage";
+import { SideDrawer } from "..";
 import axios from 'axios';
 import { Button, useDisclosure } from "@chakra-ui/react";
 import Loader from "../Loader";
-import { Container, Text, Box } from "@chakra-ui/react";
+import { Text, Box } from "@chakra-ui/react";
 import {
   Modal,
   ModalOverlay,
@@ -15,7 +15,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { fetchDataClick, postDataClick } from "../../service/api";
+// import { fetchDataClick, postDataClick } from "../../service/api";
 import { toast } from "react-toastify";
 
 
@@ -57,11 +57,20 @@ const ClicksConv = () => {
   }, [])
 
   const handlePostback = async (item) => {
+    const accessToken = user.data.access_token;
+    const campageinId = item.campaign_id;
+    const url = `${URL2}/api/analytics/postback?campaign_id=${campageinId}`;
+
     onOpen()
     try {
-      const response = await postDataClick(item);
-      console.log("data of post back data------>", response)
-      setPostData(response);
+      const response = await axios.get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      console.log("data of post back data in clickcon------>", response.data)
+      setPostData(response.data);
       setLoading(true);
     } catch (error) {
       console.log('error is-->', error);

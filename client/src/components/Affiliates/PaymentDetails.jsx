@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/paymentDetails.css";
-import { useAppContext } from "../../context/ChatProvider";
-import { SideDrawer, MyChats, ChatBox } from "..";
+// import { useAppContext } from "../../context/ChatProvider";
+import { SideDrawer } from "..";
 import {
     Box,
     Button,
@@ -12,7 +12,6 @@ import {
     FormLabel,
     Input,
     Select,
-    VStack,
     Text,
     SimpleGrid
 } from "@chakra-ui/react";

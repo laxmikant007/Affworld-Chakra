@@ -12,7 +12,7 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { getResFromLocalStorage } from "../utils/localStorage";
 import avatar from "../assets/img/avatar.png";
 const ProfileModal = ({ user, children }) => {

@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { toast } from 'react-toastify';
+
 import { getUserFromLocalStorage } from '../utils/localStorage';
-const URL1="http://localhost:5000"
+// const URL1="http://localhost:5000"
 // const URL1="https://affworld-chakra-api.onrender.com"
 
 const URL = process.env.REACT_APP_PROD_ADMIN_API;
@@ -12,11 +12,11 @@ const user = getUserFromLocalStorage();
 
 
 
-const config={
-  headers:{
-    "token":localStorage.getItem("token")
-  }
-}
+// const config={
+//   headers:{
+//     "token":localStorage.getItem("token")
+//   }
+// }
 
 //All are Offer/Campagin Section 
 export const getData = async () => {
@@ -190,21 +190,21 @@ export const getPaymentInfo = async()=>{
 
 // }
 
-export const postDataClick = async (item) => {
-  const accessToken = user.data.access_token;
-  const campageinId = item.campaign_id;
-  try {
-    const url = `${URL2}/api/analytics/postback?campaign_id=${campageinId}`;
-    const response = await axios.get(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
-      }
-    });
-    return response.data;
-  }
-  catch (error) {
-    console.log("this is error while getting data in apis data----->",error);
+// export const postDataClick = async (item) => {
+//   const accessToken = user.data.access_token;
+//   const campageinId = item.campaign_id;
+//   try {
+//     const url = `${URL2}/api/analytics/postback?campaign_id=${campageinId}`;
+//     const response = await axios.get(url, {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${accessToken}`
+//       }
+//     });
+//     return response.data;
+//   }
+//   catch (error) {
+//     console.log("this is error while getting data in apis data----->",error);
 
-  } 
-}
+//   } 
+// }

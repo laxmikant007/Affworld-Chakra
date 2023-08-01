@@ -1,25 +1,23 @@
 
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./css/paymentDetails.css";
 import { useAppContext } from "../../context/ChatProvider";
-import { SideDrawer, MyChats, ChatBox } from "..";
+import { SideDrawer } from "..";
 import {
     Box,
     Button,
     FormControl,
     FormLabel,
     Input,
-    Select,
-    VStack,
     Text,
     SimpleGrid
 } from "@chakra-ui/react";
 import { EmailIcon } from '@chakra-ui/icons';
-import { ViewIcon } from "@chakra-ui/icons";
+// import { ViewIcon } from "@chakra-ui/icons";
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
@@ -120,14 +118,7 @@ function UserDetails() {
         padding: "10px",
         borderRadius: "10px",
     }
-    const boxstyleForm2 = {
-        m: "auto",
-        border: "2px solid black",
-
-
-        padding: "10px",
-        borderRadius: "10px",
-    }
+   
 
     const innerbox = {
         border: "0.5px solid gray",

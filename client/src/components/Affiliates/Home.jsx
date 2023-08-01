@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button, Text, Box, SimpleGrid } from "@chakra-ui/react";
 import { SideDrawer } from "..";
 import { useAppContext } from "../../context/ChatProvider";
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { afterLoginStorage, getResFromLocalStorage } from "../../utils/localStorage";
-import { motion, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import hero from "../../assets/img/homesc.gif";
 
 const Home = () => {
@@ -27,13 +27,13 @@ const Home = () => {
     fontSize: "4xl",
     fontWeight: "extrabold"
   }
-  const { x } = useSpring({
-    from: { x: 0 },
-    to: { x: 100 },
-    config: { duration: 4000 },
-    reset: true,
-    loop: Infinity,
-  });
+  // const { x } = useSpring({
+  //   from: { x: 0 },
+  //   to: { x: 100 },
+  //   config: { duration: 4000 },
+  //   reset: true,
+  //   loop: Infinity,
+  // });
 
 
   useEffect(() => {

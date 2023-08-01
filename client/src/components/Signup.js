@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { VStack } from "@chakra-ui/react";
 import { toast } from "react-toastify";
-import api from "../utils/axios";
+// import api from "../utils/axios";
 import { addUserToLocalStorage } from "../utils/localStorage";
-import FileBase from "react-file-base64";
+// import FileBase from "react-file-base64";
 import axios from "axios";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const URL = process.env.REACT_APP_PROD_API;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
   const [values, setValues] = useState({

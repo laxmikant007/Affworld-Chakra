@@ -1,33 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useAppContext } from "../../context/ChatProvider";
 import { SideDrawer, MyChats, ChatBox } from "..";
 import { useClipboard } from "@chakra-ui/react";
 import { toast } from "react-toastify";
-
-import { Box, Container } from "@chakra-ui/react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, TabIndicator, Stack, Tooltip, Button, Text } from '@chakra-ui/react';
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from '@chakra-ui/react';
-import { FiSearch } from "react-icons/fi";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-} from '@chakra-ui/react'
+import {  Button } from '@chakra-ui/react';
 import Loader from "../Loader";
 import { getData } from "../../service/api"
 import { getUserFromLocalStorage , getResFromLocalStorage } from "../../utils/localStorage";
