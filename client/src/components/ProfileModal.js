@@ -24,7 +24,7 @@ const ProfileModal = ({ user, children }) => {
   const handleClickEdit =()=>{
 
     console.log(user);
-    // navigate("/userDetails")
+    navigate("/userDetails")
 
   }
 
@@ -79,7 +79,7 @@ const ProfileModal = ({ user, children }) => {
               Email: {user1?.data.email}
             </Text>
             <Button style={{ marginTop: "20px" }} colorScheme="purple" onClick={handleClick}> Payment Details</Button>
-            <Button style={{ marginTop: "20px" }} colorScheme="purple" onClick={handleClickEdit}> Edit Details</Button>
+            <Button style={{ marginTop: "20px" }} colorScheme="purple" onClick={handleClickEdit}> Overview</Button>
             <Button style={{ marginTop: "20px" }} colorScheme="purple" onClick={handleFinance}> Finance</Button>
 
           </ModalBody>

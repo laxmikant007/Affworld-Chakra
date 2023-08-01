@@ -29,9 +29,22 @@ const ClicksConv = () => {
   // const accessToken = user.data.access_token;
 
   const fetchData = async () => {
+    const accessToken = user.data.access_token;
+    // console.log("access token is from apis   -->:", accessToken)
+    const url = `${URL2}/api/analytics/clicks`;
+    // console.log("URL is in apis -->", url)
+
     try {
-      const response = await fetchDataClick();
-      setData(response);
+      // const response = await fetchDataClick();
+      const response = await axios.get(url , {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+  
+        },}
+      );
+      // console.log("this is response  --->",response.data)
+      setData(response.data);
       setLoading(true);
     } catch (error) {
       console.log("Error While Fetching data click --->",error)
